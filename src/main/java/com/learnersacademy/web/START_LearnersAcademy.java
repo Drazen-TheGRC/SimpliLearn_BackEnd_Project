@@ -1,6 +1,7 @@
 package com.learnersacademy.web;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -17,7 +18,7 @@ import com.learnersacademy.model.Admin;
 import com.learnersacademy.model.Student;
 import com.learnersacademy.model.Subject;
 
-@WebServlet("/initial-admin-registration")
+@WebServlet("/admin-registration-initial")
 public class START_LearnersAcademy extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -86,7 +87,7 @@ public class START_LearnersAcademy extends HttpServlet {
 		subjectDAO.saveSubject(subject3);
 		subjectDAO.saveSubject(subject4);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("admin-registration.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin-registration-initial.jsp");
 		dispatcher.forward(request, response);
 
 	}
@@ -94,7 +95,51 @@ public class START_LearnersAcademy extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		doGet(request, response);
+		adminAdd_thanLogin(request, response);
+	}
+
+	private void adminAdd_thanLogin(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		// Creating list of all Admin from database
+		List<Admin> listOfAdmin = adminDAO.getAllAdmin();
+
+		boolean shouldSaveAdmin = true;
+
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+
+		// Preventing duplicate username
+		for (Admin admin : listOfAdmin) {
+			String tempUsername = admin.getUsername();
+			if (tempUsername.equalsIgnoreCase(username)) {
+
+				shouldSaveAdmin = false;
+
+				request.setAttribute("errorMessage", "The username you entered is already taken, please try again!");
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("admin-registration-initial.jsp");
+				// The code below will case an error but that is OK
+				dispatcher.forward(request, response);
+
+			}
+		}
+
+		if (shouldSaveAdmin) {
+			Admin admin = new Admin();
+			admin.setFirstName(firstName);
+			admin.setLastName(lastName);
+			admin.setUsername(username);
+			admin.setPassword(password);
+
+			adminDAO.saveAdmin(admin);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			dispatcher.forward(request, response);
+		}
+
 	}
 
 }

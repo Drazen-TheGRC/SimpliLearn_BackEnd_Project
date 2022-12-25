@@ -15,7 +15,7 @@
 
 	<hr>
 	<br>
-	<form action="<%=request.getContextPath()%>/portal"	method="post">
+	<form action="<%=request.getContextPath()%>/admin-registration-initial"	method="post">
 
 		<h3 class="errorMessage">${errorMessage}</h3>
 
@@ -59,7 +59,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<button name="next-action" value="login" type="submit" >Register Admin</button>
+					<button name="" value="" type="submit" >Register Initial Admin</button>
 				</td>
 			</tr>
 		</table>
