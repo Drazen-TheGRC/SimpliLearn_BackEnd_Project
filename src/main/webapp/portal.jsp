@@ -67,8 +67,8 @@
 			      	case "admin-registration":%>
 			      		<jsp:include page="admin-registration.jsp" />
 			         	<%break;
-			      	case "admin-registration-edit":%>
-			      		<jsp:include page="admin-registration-edit.jsp" />
+			      	case "admin-edit-form":%>
+			      		<jsp:include page="admin-edit-form.jsp" />
 			         	<%break;
 			         	
 			      	case "admin-list":%>

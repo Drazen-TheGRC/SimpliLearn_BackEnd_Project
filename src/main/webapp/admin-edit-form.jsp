@@ -7,11 +7,11 @@
 
 <meta charset="UTF-8">
 <link rel="stylesheet" href="styles.css" />
-<title>Admin Registration</title>
+<title>Title</title>
 
 </head>
 <body>
-	<h1>Please Register an Admin</h1>
+	<h1>Please Edit an Admin</h1>
 
 	<hr>
 	<br>
@@ -22,7 +22,7 @@
 		<table>
 			<tr>
 				<th colspan="2">
-					<h2>Admin Register Form</h2>
+					<h2>Admin Edit Form</h2>
 				</th>
 			</tr>
 			<tr>
@@ -30,7 +30,7 @@
 					<label for="firstName">First Name:</label>
 				</td>
 				<td>
-					<input type="text" id="firstName" name="firstName" placeholder="First Name" value="" required>
+					<input type="text" id="firstName" name="firstName" placeholder="First Name" value="${firstName}" required>
 				</td>
 			</tr>
 			<tr>
@@ -38,7 +38,7 @@
 					<label for="lastName">Last Name:</label>
 				</td>
 				<td>
-					<input type="text" id="lastName" name="lastName" placeholder="Last Name" value="" required>
+					<input type="text" id="lastName" name="lastName" placeholder="Last Name" value="${lastName}" required>
 				</td>
 			</tr>
 			<tr>
@@ -46,7 +46,7 @@
 					<label for="username">User Name:</label>
 				</td>
 				<td>
-					<input type="text" id="username" name="username" placeholder="Username" value="" required>
+					<input type="text" id="username" name="username" placeholder="Username" value="${username}" required>
 				</td>
 			</tr>
 			<tr>
@@ -59,7 +59,9 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<button name="next-action" value="admin-add" type="submit" >Register Admin</button>
+				
+					<input name="id" id="id" value="${id}" type="hidden" />
+					<button name="next-action" value="admin-edit" type="submit" >Confirm Edits</button>
 				</td>
 			</tr>
 		</table>

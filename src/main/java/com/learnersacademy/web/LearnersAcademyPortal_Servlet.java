@@ -56,13 +56,30 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 		// Admin options
 
-		// Opens Admin registration Form in the Portal
+		// Opens Admin registration form in the Portal
 		case "admin-registration":
 			adminRegistration(request, response);
 			break;
 		// Adds Admin to the database or asks user to try again if error
-		case "adminAdd":
+		case "admin-add":
 			adminAdd(request, response);
+			break;
+
+		// Lists all Admin from the database
+		case "admin-list":
+			adminList(request, response);
+			break;
+		// Opens Admin edit form in the Portal
+		case "admin-edit-form":
+			adminEditForm(request, response);
+			break;
+		// Edits particular Admin or asks user to try again if error
+		case "admin-edit":
+			adminEdit(request, response);
+			break;
+		// Deletes particular Admin from the database
+		case "admin-delete":
+			adminDelete(request, response);
 			break;
 
 		default:
@@ -70,65 +87,6 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			break;
 		}
 
-	}
-
-	private void adminAdd(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-
-		// Creating list of all Admin from database
-		List<Admin> listOfAdmin = adminDAO.getAllAdmin();
-
-		String firstName = request.getParameter("firstName");
-		String lastName = request.getParameter("lastName");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-
-		// Preventing duplicate username
-		for (Admin admin : listOfAdmin) {
-			String tempUsername = admin.getUsername();
-			if (tempUsername.equalsIgnoreCase(username)) {
-
-				request.setAttribute("errorMessage", "The username you entered is already taken, please try again!");
-
-				request.setAttribute("side-menu", "");
-				request.setAttribute("main-content", "");
-				request.setAttribute("next-action", "");
-
-				RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
-				dispatcher.forward(request, response);
-			}
-		}
-
-		Admin admin = new Admin();
-		admin.setFirstName(firstName);
-		admin.setLastName(lastName);
-		admin.setUsername(username);
-		admin.setPassword(password);
-
-		adminDAO.saveAdmin(admin);
-
-		request.setAttribute("errorMessage", null);
-
-		request.setAttribute("side-menu", "");
-		request.setAttribute("main-content", "");
-		request.setAttribute("next-action", "");
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
-		dispatcher.forward(request, response);
-
-	}
-
-	private void adminRegistration(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		request.setAttribute("errorMessage", null);
-
-		request.setAttribute("side-menu", "");
-		request.setAttribute("main-content", "");
-		request.setAttribute("next-action", "");
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
-		dispatcher.forward(request, response);
 	}
 
 	private void authenticateAdmin(HttpServletRequest request, HttpServletResponse response)
@@ -143,7 +101,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			request.setAttribute("side-menu", null);
 			request.setAttribute("main-content", "welcome");
 			request.setAttribute("next-action", null);
-			
+
 			request.setAttribute("welcomeMessage", "Welcome to the Learners's Academy Portal!");
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
@@ -172,6 +130,158 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 		dispatcher.forward(request, response);
+	}
+
+	private void adminRegistration(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		request.setAttribute("errorMessage", null);
+
+		request.setAttribute("side-menu", "admin");
+		request.setAttribute("main-content", "admin-registration");
+		request.setAttribute("next-action", null);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void adminAdd(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		// Creating list of all Admin from database
+		List<Admin> listOfAdmin = adminDAO.getAllAdmin();
+
+		boolean shouldSaveAdmin = true;
+
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+
+		// Preventing duplicate username
+		for (Admin admin : listOfAdmin) {
+			String tempUsername = admin.getUsername();
+			if (tempUsername.equalsIgnoreCase(username)) {
+
+				shouldSaveAdmin = false;
+
+				request.setAttribute("errorMessage", "The username you entered is already taken, please try again!");
+
+				request.setAttribute("side-menu", "admin");
+				request.setAttribute("main-content", "admin-registration");
+				request.setAttribute("next-action", null);
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+				dispatcher.forward(request, response);
+			}
+		}
+
+		if (shouldSaveAdmin) {
+			Admin admin = new Admin();
+			admin.setFirstName(firstName);
+			admin.setLastName(lastName);
+			admin.setUsername(username);
+			admin.setPassword(password);
+
+			adminDAO.saveAdmin(admin);
+
+			request.setAttribute("errorMessage", null);
+
+			adminList(request, response);
+		}
+
+	}
+
+	private void adminList(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		List<Admin> listOfAdmin = adminDAO.getAllAdmin();
+
+		request.setAttribute("listOfAdmin", listOfAdmin);
+
+		request.setAttribute("errorMessage", null);
+
+		request.setAttribute("side-menu", "admin");
+		request.setAttribute("main-content", "admin-list");
+		request.setAttribute("next-action", null);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void adminEditForm(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		int id = Integer.parseInt(request.getParameter("id"));
+		Admin existingAdmin = adminDAO.getAdmin(id);
+
+		request.setAttribute("id", existingAdmin.getId());
+		request.setAttribute("firstName", existingAdmin.getFirstName());
+		request.setAttribute("lastName", existingAdmin.getLastName());
+		request.setAttribute("username", existingAdmin.getUsername());
+		request.setAttribute("password", existingAdmin.getPassword());
+
+		// request.setAttribute("errorMessage", request.getAttribute("errorMessage"));
+
+		request.setAttribute("side-menu", "admin");
+		request.setAttribute("main-content", "admin-edit-form");
+		request.setAttribute("next-action", null);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void adminEdit(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		List<Admin> listOfAdmin = adminDAO.getAllAdmin();
+
+		boolean shouldEditAdmin = true;
+
+		int id = Integer.parseInt(request.getParameter("id"));
+		String username = request.getParameter("username");
+
+		for (Admin admin : listOfAdmin) {
+			String tempUsername = admin.getUsername();
+			// Checks if the username exists in the database
+			if (tempUsername.equalsIgnoreCase(username)) {
+				// If the username exists in the database it checks is if it belongs to the
+				// object we are editing
+				if (!username.equalsIgnoreCase(adminDAO.getAdmin(id).getUsername())) {
+					// If the username exists in the database but it doesen't belong to the object
+					// we are editing
+
+					shouldEditAdmin = false;
+
+					request.setAttribute("errorMessage",
+							"The username you entered is already taken, please try again!");
+
+					adminEditForm(request, response);
+				}
+			}
+		}
+
+		// Preventing duplicates
+		if (shouldEditAdmin) {
+
+			Admin admin = new Admin(Integer.parseInt(request.getParameter("id")), request.getParameter("firstName"),
+					request.getParameter("lastName"), request.getParameter("username"),
+					request.getParameter("password"));
+
+			adminDAO.updateAdmin(admin);
+
+			adminList(request, response);
+		}
+	}
+
+	private void adminDelete(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		// Deleting by id
+		int id = Integer.parseInt(request.getParameter("id"));
+		adminDAO.deleteAdmin(id);
+
+		// Listing again
+		adminList(request, response);
 	}
 
 	@SuppressWarnings("unused")
