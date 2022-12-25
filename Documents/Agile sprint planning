@@ -74,14 +74,14 @@ Step one - 	Creating project structure (directories),
 			create	Model (POJOs) for Admin
 			create 	HibernateUtil
 			create	AdminDAO
-			create	admin-registration JSP
-			create 	admin-registration Servlet
+			
+			
 					
 			
 
 Step two - 	Create other POJOs, DAOs
 
-			create 	
+			 	
 
 
 SPRITE 3

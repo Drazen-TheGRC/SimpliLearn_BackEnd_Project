@@ -9,6 +9,10 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
 import com.learnersacademy.model.Admin;
+import com.learnersacademy.model.ClassLecture;
+import com.learnersacademy.model.Student;
+import com.learnersacademy.model.Subject;
+import com.learnersacademy.model.Teacher;
 
 public class HibernateUtil {
 	// Creating a sessionFactory
@@ -44,6 +48,10 @@ public class HibernateUtil {
 				configuration.setProperties(settings);
 
 				configuration.addAnnotatedClass(Admin.class);
+				configuration.addAnnotatedClass(Student.class);
+				configuration.addAnnotatedClass(Subject.class);
+				configuration.addAnnotatedClass(Teacher.class);
+				configuration.addAnnotatedClass(ClassLecture.class);
 
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 						.applySettings(configuration.getProperties()).build();
