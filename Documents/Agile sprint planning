@@ -1,0 +1,83 @@
+SPRINT 1
+
+Step zero - 	Fresh MySQL & Eclipse
+					Download MySQL Installer and use it to uninstall everything
+					In File Explorer use View and mark Hidden items and delete all MySQL related folders
+						C:\Program Files\MySQL
+						C:\Program Files (x86)\MySQL
+						C:\ProgramData\MySQL
+						C:\Users\<your-username>\AppData\Roaming\MySQL
+				Install fresh MySQL, https://downloads.mysql.com/archives/installer/
+				I chose 8.0.13
+
+				My user and password for MySQL
+				user: 		root
+				password:	password
+
+				Install fresh Eclipse
+				First uninstall
+					Delete eclipse folder C:\Users\YourUserName\eclipse
+					Delete eclipse cache C:\Users\YourUserName\.p2
+					Delete shortcuts 
+					Delete eclipse workspace (if you want to delete all of your projects)
+				Than Install	
+					Download https://www.eclipse.org/downloads/
+					Install now and chose Eclipse IDE for Enterprise Java and Web Developers 
+				
+
+Step one - 		Create Dynamic Web Project inside eclipse-workspace,
+				create git repo for this project (RC on the project > Team > Share Project... > 
+				check Use or create repository in parent folder of the project > 
+				click on the project/select project > 
+				Create Repository > 
+				Finish),
+				refresh project,
+				delete .gitignore,
+				do initial commit
+				
+				or
+			
+				Creating project GitHub repo, 
+				clone GitHub repo into eclipse-workspace, 
+				create Dynamic Web Project inside cloned GitHub repo folder inside eclipse-workspace,
+				add files into staging area and do an initial commit.
+				
+				or simply just create your eclipse project and use GitHub Desktop to take care of your VCS
+			
+Step two -		Add essential documents into the project,
+				add dependencies and build path for necessary JARs:
+			
+				1.antlr-2.7.7
+				2.byte-buddy-1.8.17
+				3.classmate-1.3.4
+				4.dom4j-2.1.1
+				5.hibernate-commons-annotations-5.0.4.Final
+				6.hibernate-core-5.3.7.Final
+				7.jandex-2.0.5.Final
+				8.javassist-3.23.1-GA
+				9.javax.activation-api-1.2.0
+				10.javax.persistence-api-2.2
+				11.jaxb-api-2.3.1
+				12.jboss-logging-3.3.2.Final
+				13.jboss-transaction-api_1.2_spec-1.1.1.Final
+				14.jsp-api-2.2
+				15.jstl-1.2
+				16.mysql-connector-java-8.0.13
+				17.protobuf-java-3.6.1
+				18.servlet-api (From apache-tomcat-8.5.78 lib folder)
+			
+SPRINT 2
+Step one - 	Creating project structure (directories),
+			create 	learners_academy_database database (I will use HeidiSQL), 
+				
+			create 	HibernateUtil, Admin(POJO), AdminDAO and AdminServlet
+			create 	
+					
+			
+
+Step two - 	
+
+
+SPRITE 3
+
+
