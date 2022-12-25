@@ -23,3 +23,7 @@ td {
 hr {
 	width: 60%;
 }
+
+.errorMessage {
+	color: red;
+}

@@ -12,7 +12,7 @@
 </style>
 
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Admin Registration</title>
 
 
 </head>
@@ -21,8 +21,9 @@
 
 	<hr>
 	<br>
-	<form action="/admin-register" method="post">
-
+	<form action="<%=request.getContextPath()%>/admin-registration" method="post">
+		
+		<h3 class="errorMessage" >${errorMessage}</h3>
 	
 		<table>
 			<tr>

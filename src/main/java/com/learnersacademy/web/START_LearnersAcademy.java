@@ -86,7 +86,7 @@ public class START_LearnersAcademy extends HttpServlet {
 		subjectDAO.saveSubject(subject3);
 		subjectDAO.saveSubject(subject4);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("admin-register.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin-registration.jsp");
 		dispatcher.forward(request, response);
 
 	}
