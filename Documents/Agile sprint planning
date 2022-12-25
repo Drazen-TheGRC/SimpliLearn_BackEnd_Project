@@ -70,8 +70,8 @@ SPRINT 2
 Step one - 	Creating project structure (directories),
 			create 	learners_academy_database database (I will use HeidiSQL), 
 				
-			create 	HibernateUtil, Admin(POJO), AdminDAO and AdminServlet
-			create 	
+			create	Model (POJOs) for Admin
+			create 	HibernateUtil
 					
 			
 
