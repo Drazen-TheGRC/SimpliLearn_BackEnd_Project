@@ -6,44 +6,17 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.learnersacademy.model.Admin;
+import com.learnersacademy.model.Student;
 import com.learnersacademy.util.HibernateUtil;
 
-public class AdminDAO {
+public class StudentDAO {
 
-	// validateAdmin()
-	public boolean validateAdmin(String userName, String password) {
-
-		Transaction transaction = null;
-
-		Admin admin = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			// start a transaction
-			transaction = session.beginTransaction();
-			// get an user object
-			admin = (Admin) session.createQuery("FROM Admin A WHERE A.username = :userName")
-					.setParameter("userName", userName).uniqueResult();
-
-			if (admin != null && admin.getPassword().equals(password)) {
-				return true;
-			}
-			// commit transaction
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	// saveAdmin()
-	public void saveAdmin(Admin admin) {
+	// saveStudent()
+	public void saveStudent(Student student) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			session.save(admin);
+			session.save(student);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -53,12 +26,12 @@ public class AdminDAO {
 		}
 	}
 
-	// updateAdmin()
-	public void updateAdmin(Admin admin) {
+	// updateStudent()
+	public void updateStudent(Student student) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			session.update(admin);
+			session.update(student);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -68,15 +41,15 @@ public class AdminDAO {
 		}
 	}
 
-	// deleteAdmin()
-	public void deleteAdmin(int id) {
+	// deleteStudent()
+	public void deleteStudent(int id) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			Admin admin = session.get(Admin.class, id);
-			if (admin != null) {
-				session.delete(admin);
-				System.out.println("admin is deleted");
+			Student student = session.get(Student.class, id);
+			if (student != null) {
+				session.delete(student);
+				System.out.println("student is deleted");
 			}
 			transaction.commit();
 		} catch (Exception e) {
@@ -87,13 +60,13 @@ public class AdminDAO {
 		}
 	}
 
-	// getAdmin()
-	public Admin getAdmin(int id) {
+	// getStudent()
+	public Student getStudent(int id) {
 		Transaction transaction = null;
-		Admin admin = null;
+		Student student = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			admin = session.get(Admin.class, id);
+			student = session.get(Student.class, id);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -101,21 +74,21 @@ public class AdminDAO {
 			}
 			e.printStackTrace();
 		}
-		return admin;
+		return student;
 	}
 
-	// getAllAdmin()
+	// getAllStudent()
 	@SuppressWarnings("unchecked")
-	public List<Admin> getAllAdmin() {
+	public List<Student> getAllStudent() {
 
 		Transaction transaction = null;
 
-		List<Admin> listOfAdmin = new ArrayList<Admin>();
+		List<Student> listOfStudent = new ArrayList<Student>();
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 
-			listOfAdmin = session.createQuery("from Admin").getResultList();
+			listOfStudent = session.createQuery("from Student").getResultList();
 
 			transaction.commit();
 		} catch (Exception e) {
@@ -124,7 +97,6 @@ public class AdminDAO {
 			}
 			e.printStackTrace();
 		}
-		return listOfAdmin;
+		return listOfStudent;
 	}
-
 }
