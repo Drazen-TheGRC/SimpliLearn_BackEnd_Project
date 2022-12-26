@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.learnersacademy.dao.AdminDAO;
 import com.learnersacademy.dao.StudentDAO;
@@ -96,6 +97,13 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 		if (adminDAO.validateAdmin(username, password)) {
 
+			// Creating session so we can logout properly 
+			HttpSession session = request.getSession();
+			session.setMaxInactiveInterval(5*60);
+			session.setAttribute("username", username);
+			// Print the session object in the console after creating the session.
+	        System.out.println("Session after create: "+ request.getSession(false));
+			
 			request.setAttribute("errorMessage", null);
 
 			request.setAttribute("side-menu", null);
@@ -122,6 +130,14 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		// Invalidate the session.
+		HttpSession session = request.getSession(false);
+		session.removeAttribute("username");
+		session.invalidate();
+		
+		// Print the session object in the console after invalidating the session.
+        System.out.println("Session after invalidate: "+ request.getSession(false));
+		
 		request.setAttribute("errorMessage", null);
 
 		request.setAttribute("side-menu", null);
