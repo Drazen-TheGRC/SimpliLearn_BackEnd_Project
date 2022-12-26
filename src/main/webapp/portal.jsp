@@ -74,6 +74,8 @@
 			   		case "welcome":%>
 			   			<jsp:include page="welcome.jsp" />
 			     		<%break;
+			     		
+			     		
 			      	case "admin-registration":%>
 			      		<jsp:include page="admin-registration.jsp" />
 			         	<%break;
@@ -83,6 +85,18 @@
 			         	
 			      	case "admin-list":%>
 			   			<jsp:include page="admin-list.jsp" />
+			     		<%break;
+			     		
+			     		
+				  	case "student-registration":%>
+			      		<jsp:include page="student-registration.jsp" />
+			         	<%break;
+			      	case "student-edit-form":%>
+			      		<jsp:include page="student-edit-form.jsp" />
+			         	<%break;
+			         	
+			      	case "student-list":%>
+			   			<jsp:include page="student-list.jsp" />
 			     		<%break;
 			      	
 

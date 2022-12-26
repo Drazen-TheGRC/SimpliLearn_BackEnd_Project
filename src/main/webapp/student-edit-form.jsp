@@ -7,7 +7,7 @@
 
 <meta charset="UTF-8">
 <link rel="stylesheet" href="styles.css" />
-<title>Admin Edit Form</title>
+<title>Student Edit Form</title>
 
 </head>
 <body>
@@ -19,7 +19,7 @@
 				response.sendRedirect("login.jsp");
 			}		
 		%>
-	<h1>Please Edit an Admin</h1>
+	<h1>Please Edit a Student</h1>
 
 	<hr>
 	<br>
@@ -30,8 +30,16 @@
 		<table>
 			<tr>
 				<th colspan="2">
-					<h2>Admin Edit Form</h2>
+					<h2>Student Edit Form</h2>
 				</th>
+			</tr>
+			<tr>
+				<td align="right">
+					<label for="studentId">Student ID:</label>
+				</td>
+				<td>
+					<input type="text" id="studentId" name="studentId" placeholder="Student ID" value="${studentId}" required>
+				</td>
 			</tr>
 			<tr>
 				<td align="right">
@@ -51,25 +59,17 @@
 			</tr>
 			<tr>
 				<td align="right">
-					<label for="username">User Name:</label>
+					<label for="age">Age:</label>
 				</td>
 				<td>
-					<input type="text" id="username" name="username" placeholder="Username" value="${username}" required>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">
-					<label for="pasword">Password:</label>
-				</td>
-				<td>
-					<input type="password" id="password" name="password" placeholder="Password" value="" required>
+					<input type="text" id="age" name="age" placeholder="Age" value="${age}" required>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
 				
 					<input name="id" id="id" value="${id}" type="hidden" />
-					<button name="next-action" value="admin-edit" type="submit" >Confirm Edits</button>
+					<button name="next-action" value="student-edit" type="submit" >Confirm Edits</button>
 				</td>
 			</tr>
 		</table>

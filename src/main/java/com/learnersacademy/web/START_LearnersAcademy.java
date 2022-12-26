@@ -118,7 +118,7 @@ public class START_LearnersAcademy extends HttpServlet {
 
 				shouldSaveAdmin = false;
 
-				request.setAttribute("errorMessage", "The username you entered is already taken, please try again!");
+				request.setAttribute("errorMessage", "The username you entered: > " + username + " < is already taken, please try again!");
 
 				RequestDispatcher dispatcher = request.getRequestDispatcher("admin-registration-initial.jsp");
 				// The code below will case an error but that is OK
