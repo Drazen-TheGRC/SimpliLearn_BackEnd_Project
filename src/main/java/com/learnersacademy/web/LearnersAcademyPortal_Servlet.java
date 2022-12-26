@@ -15,8 +15,10 @@ import javax.servlet.http.HttpSession;
 import com.learnersacademy.dao.AdminDAO;
 import com.learnersacademy.dao.StudentDAO;
 import com.learnersacademy.dao.SubjectDAO;
+import com.learnersacademy.dao.TeacherDAO;
 import com.learnersacademy.model.Admin;
 import com.learnersacademy.model.Student;
+import com.learnersacademy.model.Teacher;
 
 @WebServlet("/portal")
 public class LearnersAcademyPortal_Servlet extends HttpServlet {
@@ -25,11 +27,13 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 	AdminDAO adminDAO;
 	StudentDAO studentDAO;
 	SubjectDAO subjectDAO;
+	TeacherDAO teacherDAO;
 
 	public void init(ServletConfig config) throws ServletException {
 		adminDAO = new AdminDAO();
 		studentDAO = new StudentDAO();
 		subjectDAO = new SubjectDAO();
+		teacherDAO = new TeacherDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -82,34 +86,60 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		case "admin-delete":
 			adminDelete(request, response);
 			break;
-			
-			
-			// Student options
 
-			// Opens Student registration form in the Portal
-			case "student-registration":
-				studentRegistration(request, response);
-				break;
-			// Adds Student to the database or asks user to try again if error
-			case "student-add":
-				studentAdd(request, response);
-				break;
-			// Lists all Student from the database
-			case "student-list":
-				studentList(request, response);
-				break;
-			// Opens Student edit form in the Portal
-			case "student-edit-form":
-				studentEditForm(request, response);
-				break;
-			// Edits particular Student or asks user to try again if error
-			case "student-edit":
-				studentEdit(request, response);
-				break;
-			// Deletes particular Admin from the database
-			case "student-delete":
-				studentDelete(request, response);
-				break;	
+		// Student options
+
+		// Opens Student registration form in the Portal
+		case "student-registration":
+			studentRegistration(request, response);
+			break;
+		// Adds Student to the database or asks user to try again if error
+		case "student-add":
+			studentAdd(request, response);
+			break;
+		// Lists all Student from the database
+		case "student-list":
+			studentList(request, response);
+			break;
+		// Opens Student edit form in the Portal
+		case "student-edit-form":
+			studentEditForm(request, response);
+			break;
+		// Edits particular Student or asks user to try again if error
+		case "student-edit":
+			studentEdit(request, response);
+			break;
+		// Deletes particular Admin from the database
+		case "student-delete":
+			studentDelete(request, response);
+			break;
+
+		// Teacher options
+
+		// Opens Teacher registration form in the Portal
+		case "teacher-registration":
+			teacherRegistration(request, response);
+			break;
+		// Adds teacher to the database or asks user to try again if error
+		case "teacher-add":
+			teacherAdd(request, response);
+			break;
+		// Lists all Teacher from the database
+		case "teacher-list":
+			teacherList(request, response);
+			break;
+		// Opens Teacher edit form in the Portal
+		case "teacher-edit-form":
+			teacherEditForm(request, response);
+			break;
+		// Edits particular Teacher or asks user to try again if error
+		case "teacher-edit":
+			teacherEdit(request, response);
+			break;
+		// Deletes particular Teacher from the database
+		case "teacher-delete":
+			teacherDelete(request, response);
+			break;
 
 		default:
 			logout(request, response);
@@ -118,6 +148,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 	}
 
+	// authenticateAdmin() - this is login
 	private void authenticateAdmin(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		String username = request.getParameter("username");
@@ -125,13 +156,13 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 		if (adminDAO.validateAdmin(username, password)) {
 
-			// Creating session so we can logout properly 
+			// Creating session so we can logout properly
 			HttpSession session = request.getSession();
-			session.setMaxInactiveInterval(5*60);
+			session.setMaxInactiveInterval(5 * 60);
 			session.setAttribute("username", username);
 			// Print the session object in the console after creating the session.
-	        System.out.println("Session after create: "+ request.getSession(false));
-			
+			System.out.println("Session after create: " + request.getSession(false));
+
 			request.setAttribute("errorMessage", null);
 
 			request.setAttribute("side-menu", null);
@@ -156,16 +187,17 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		}
 	}
 
+	// Logout
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// Invalidate the session.
 		HttpSession session = request.getSession(false);
 		session.removeAttribute("username");
 		session.invalidate();
-		
+
 		// Print the session object in the console after invalidating the session.
-        System.out.println("Session after invalidate: "+ request.getSession(false));
-		
+		System.out.println("Session after invalidate: " + request.getSession(false));
+
 		request.setAttribute("errorMessage", null);
 
 		request.setAttribute("side-menu", null);
@@ -176,6 +208,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
+	// Admin methods
 	private void adminRegistration(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -209,7 +242,8 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 				shouldSaveAdmin = false;
 
-				request.setAttribute("errorMessage", "The username you entered: > " + username + " < is already taken, please try again!");
+				request.setAttribute("errorMessage",
+						"The username you entered: > " + username + " < is already taken, please try again!");
 
 				request.setAttribute("side-menu", "admin");
 				request.setAttribute("main-content", "admin-registration");
@@ -297,7 +331,8 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 					shouldEditAdmin = false;
 
-					request.setAttribute("errorMessage", "The username you entered: > " + username + " < is already taken, please try again!");
+					request.setAttribute("errorMessage",
+							"The username you entered: > " + username + " < is already taken, please try again!");
 
 					adminEditForm(request, response);
 				}
@@ -327,45 +362,168 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		adminList(request, response);
 	}
 
-	@SuppressWarnings("unused")
-	private void skeletonMethod(HttpServletRequest request, HttpServletResponse response)
+	
+	
+	
+	
+	
+	
+	
+	// Teacher methods
+	private void teacherRegistration(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		request.setAttribute("errorMessage", null);
 
-		request.setAttribute("side-menu", "");
-		request.setAttribute("main-content", "");
-		request.setAttribute("next-action", "");
+		request.setAttribute("side-menu", "teacher");
+		request.setAttribute("main-content", "teacher-registration");
+		request.setAttribute("next-action", null);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
 		dispatcher.forward(request, response);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	private void teacherAdd(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		// Creating list of all Teacher from database
+		List<Teacher> listOfTeacher = teacherDAO.getAllTeacher();
+
+		boolean shouldSaveTeacher = true;
+
+		String accreditationId = request.getParameter("accreditationId");
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		int age = Integer.parseInt(request.getParameter("age"));
+
+		// Preventing duplicate accreditationId
+		for (Teacher teacher : listOfTeacher) {
+			String tempAccreditationId = teacher.getAccreditationId();
+			if (tempAccreditationId.equalsIgnoreCase(accreditationId)) {
+
+				shouldSaveTeacher = false;
+
+				request.setAttribute("errorMessage", "The accreditationId you entered: > " + accreditationId
+						+ " < is already taken, please try again!");
+
+				request.setAttribute("side-menu", "teacher");
+				request.setAttribute("main-content", "teacher-registration");
+				request.setAttribute("next-action", null);
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+				dispatcher.forward(request, response);
+			}
+		}
+
+		if (shouldSaveTeacher) {
+			Teacher teacher = new Teacher();
+			teacher.setAccreditationId(accreditationId);
+			teacher.setFirstName(firstName);
+			teacher.setLastName(lastName);
+			teacher.setAge(age);
+
+			teacherDAO.saveTeacher(teacher);
+
+			request.setAttribute("errorMessage", null);
+
+			teacherList(request, response);
+		}
+
+	}
+
+	private void teacherList(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		List<Teacher> listOfTeacher = teacherDAO.getAllTeacher();
+
+		request.setAttribute("listOfTeacher", listOfTeacher);
+
+		request.setAttribute("errorMessage", null);
+
+		request.setAttribute("side-menu", "teacher");
+		request.setAttribute("main-content", "teacher-list");
+		request.setAttribute("next-action", null);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void teacherEditForm(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		int id = Integer.parseInt(request.getParameter("id"));
+		Teacher existingTeacher = teacherDAO.getTeacher(id);
+
+		request.setAttribute("id", existingTeacher.getId());
+		request.setAttribute("accreditationId", existingTeacher.getAccreditationId());
+		request.setAttribute("firstName", existingTeacher.getFirstName());
+		request.setAttribute("lastName", existingTeacher.getLastName());
+		request.setAttribute("age", existingTeacher.getAge());
+
+		request.setAttribute("side-menu", "teacher");
+		request.setAttribute("main-content", "teacher-edit-form");
+		request.setAttribute("next-action", null);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void teacherEdit(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		List<Teacher> listOfTeacher = teacherDAO.getAllTeacher();
+
+		boolean shouldEditTeacher = true;
+
+		int id = Integer.parseInt(request.getParameter("id"));
+		String accreditationId = request.getParameter("accreditationId");
+
+		for (Teacher teacher : listOfTeacher) {
+			String tempAccreditationId = teacher.getAccreditationId();
+			// Checks if the accreditationId exists in the database
+			if (tempAccreditationId.equalsIgnoreCase(accreditationId)) {
+				// If the accreditationId exists in the database it checks is if it belongs to
+				// the
+				// object we are editing
+				if (!accreditationId.equalsIgnoreCase(teacherDAO.getTeacher(id).getAccreditationId())) {
+					// If the accreditationId exists in the database but it doesen't belong to the
+					// object
+					// we are editing
+
+					shouldEditTeacher = false;
+
+					request.setAttribute("errorMessage", "The accreditationId you entered: > " + accreditationId
+							+ " < is already taken, please try again!");
+
+					teacherEditForm(request, response);
+				}
+			}
+		}
+
+		// Preventing duplicates
+		if (shouldEditTeacher) {
+
+			Teacher teacher = new Teacher(Integer.parseInt(request.getParameter("id")),
+					request.getParameter("accreditationId"), request.getParameter("firstName"),
+					request.getParameter("lastName"), Integer.parseInt(request.getParameter("age")));
+
+			teacherDAO.updateTeacher(teacher);
+
+			teacherList(request, response);
+		}
+	}
+
+	private void teacherDelete(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		// Deleting by id
+		int id = Integer.parseInt(request.getParameter("id"));
+		teacherDAO.deleteTeacher(id);
+
+		// Listing again
+		teacherList(request, response);
+	}
+
+	// Student methods
 	private void studentRegistration(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -386,12 +544,12 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		List<Student> listOfStudent = studentDAO.getAllStudent();
 
 		boolean shouldSaveStudent = true;
-		
+
 		String studentId = request.getParameter("studentId");
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		int age = Integer.parseInt(request.getParameter("age"));
-		
+
 		// Preventing duplicate studentId
 		for (Student student : listOfStudent) {
 			String tempStudentId = student.getStudentId();
@@ -399,7 +557,8 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 				shouldSaveStudent = false;
 
-				request.setAttribute("errorMessage", "The studentId you entered: > " + studentId + " < is already taken, please try again!");
+				request.setAttribute("errorMessage",
+						"The studentId you entered: > " + studentId + " < is already taken, please try again!");
 
 				request.setAttribute("side-menu", "student");
 				request.setAttribute("main-content", "student-registration");
@@ -455,7 +614,6 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		request.setAttribute("lastName", existingStudent.getLastName());
 		request.setAttribute("age", existingStudent.getAge());
 
-
 		// request.setAttribute("errorMessage", request.getAttribute("errorMessage"));
 
 		request.setAttribute("side-menu", "student");
@@ -488,7 +646,8 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 					shouldEditStudent = false;
 
-					request.setAttribute("errorMessage", "The studentId you entered: > " + studentId + " < is already taken, please try again!");
+					request.setAttribute("errorMessage",
+							"The studentId you entered: > " + studentId + " < is already taken, please try again!");
 
 					studentEditForm(request, response);
 				}
@@ -498,7 +657,8 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		// Preventing duplicates
 		if (shouldEditStudent) {
 
-			Student student = new Student(Integer.parseInt(request.getParameter("id")), request.getParameter("studentId"), request.getParameter("firstName"),
+			Student student = new Student(Integer.parseInt(request.getParameter("id")),
+					request.getParameter("studentId"), request.getParameter("firstName"),
 					request.getParameter("lastName"), Integer.parseInt(request.getParameter("age")));
 
 			studentDAO.updateStudent(student);
@@ -515,6 +675,20 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 		// Listing again
 		studentList(request, response);
+	}
+
+	@SuppressWarnings("unused")
+	private void skeletonMethod(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		request.setAttribute("errorMessage", null);
+
+		request.setAttribute("side-menu", "");
+		request.setAttribute("main-content", "");
+		request.setAttribute("next-action", "");
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

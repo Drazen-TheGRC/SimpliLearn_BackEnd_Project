@@ -43,6 +43,13 @@
 							
 						<button name="next-action" value="subject-list" type="submit">List All Subjects</button>
 				</form>
+				<br>
+				<form action="<%=request.getContextPath()%>/portal" method="post">
+						<input name="side-menu" value="teacher" type="hidden" />
+						<input name="main-content" value="teacher-list" type="hidden" />
+							
+						<button name="next-action" value="teacher-list" type="submit">List All Teachers</button>
+				</form>
 
 				<br>
 				<hr width="90%">
@@ -97,6 +104,18 @@
 			         	
 			      	case "student-list":%>
 			   			<jsp:include page="student-list.jsp" />
+			     		<%break;
+			     		
+			     		
+			      	case "teacher-registration":%>
+		      			<jsp:include page="teacher-registration.jsp" />
+		         		<%break;
+			      	case "teacher-edit-form":%>
+			      		<jsp:include page="teacher-edit-form.jsp" />
+			         	<%break;
+			         	
+			      	case "teacher-list":%>
+			   			<jsp:include page="teacher-list.jsp" />
 			     		<%break;
 			      	
 

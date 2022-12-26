@@ -14,9 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.learnersacademy.dao.AdminDAO;
 import com.learnersacademy.dao.StudentDAO;
 import com.learnersacademy.dao.SubjectDAO;
+import com.learnersacademy.dao.TeacherDAO;
 import com.learnersacademy.model.Admin;
 import com.learnersacademy.model.Student;
 import com.learnersacademy.model.Subject;
+import com.learnersacademy.model.Teacher;
 
 @WebServlet("/admin-registration-initial")
 public class START_LearnersAcademy extends HttpServlet {
@@ -25,11 +27,13 @@ public class START_LearnersAcademy extends HttpServlet {
 	AdminDAO adminDAO;
 	StudentDAO studentDAO;
 	SubjectDAO subjectDAO;
+	TeacherDAO teacherDAO;
 
 	public void init(ServletConfig config) throws ServletException {
 		adminDAO = new AdminDAO();
 		studentDAO = new StudentDAO();
 		subjectDAO = new SubjectDAO();
+		teacherDAO = new TeacherDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -67,16 +71,23 @@ public class START_LearnersAcademy extends HttpServlet {
 		studentDAO.saveStudent(student9);
 		studentDAO.saveStudent(student10);
 
-		// Use those names for Teacher instances later on
-		// Jane Taylor
-		// Joseph Hernandez
-		// Eliza Walker
-		// Samuel Gonzalez
+		// Use those names for other instances later on
+		
 		// Catherine Moore
 		// David Hill
 		// Hannah Thompson
 		// Daniel Jackson
 
+		// teacher starter
+		Teacher teacher1 = new Teacher("LA-1949-001", "Jane", "Taylor", 49);
+		Teacher teacher2 = new Teacher("LA-1954-002", "Joseph", "Hernandez", 54);
+		Teacher teacher3 = new Teacher("LA-1960-003", "Eliza", "Walker", 60);
+		Teacher teacher4 = new Teacher("LA-1957-004", "Samuel", "Gonzalez", 57);
+		teacherDAO.saveTeacher(teacher1);
+		teacherDAO.saveTeacher(teacher2);
+		teacherDAO.saveTeacher(teacher3);
+		teacherDAO.saveTeacher(teacher4);
+		
 		// Subject starter
 		Subject subject1 = new Subject("English", "ENG");
 		Subject subject2 = new Subject("Mathematics", "MATH");
