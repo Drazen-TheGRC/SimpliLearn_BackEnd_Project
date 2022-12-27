@@ -38,18 +38,20 @@
 				</form>
 				<br>
 				<form action="<%=request.getContextPath()%>/portal" method="post">
-						<input name="side-menu" value="subject" type="hidden" />
-						<input name="main-content" value="subject-list" type="hidden" />
-							
-						<button name="next-action" value="subject-list" type="submit">List All Subjects</button>
-				</form>
-				<br>
-				<form action="<%=request.getContextPath()%>/portal" method="post">
 						<input name="side-menu" value="teacher" type="hidden" />
 						<input name="main-content" value="teacher-list" type="hidden" />
 							
 						<button name="next-action" value="teacher-list" type="submit">List All Teachers</button>
 				</form>
+				<br>
+				<form action="<%=request.getContextPath()%>/portal" method="post">
+						<input name="side-menu" value="subject" type="hidden" />
+						<input name="main-content" value="subject-list" type="hidden" />
+							
+						<button name="next-action" value="subject-list" type="submit">List All Subjects</button>
+				</form>
+				
+				
 
 				<br>
 				<hr width="90%">
@@ -116,6 +118,18 @@
 			         	
 			      	case "teacher-list":%>
 			   			<jsp:include page="teacher-list.jsp" />
+			     		<%break;
+			     		
+			     		
+			      	case "subject-registration":%>
+	      				<jsp:include page="subject-registration.jsp" />
+	         			<%break;
+			      	case "subject-edit-form":%>
+			      		<jsp:include page="subject-edit-form.jsp" />
+			         	<%break;
+			         	
+			      	case "subject-list":%>
+			   			<jsp:include page="subject-list.jsp" />
 			     		<%break;
 			      	
 

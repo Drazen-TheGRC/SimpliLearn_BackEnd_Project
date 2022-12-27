@@ -18,7 +18,7 @@ public class Subject implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "subject")
+	@Column(name = "subject_name")
 	private String subjectName;
 
 	@Column(name = "subject_shortcut")

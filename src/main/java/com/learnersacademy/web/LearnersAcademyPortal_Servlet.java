@@ -18,6 +18,7 @@ import com.learnersacademy.dao.SubjectDAO;
 import com.learnersacademy.dao.TeacherDAO;
 import com.learnersacademy.model.Admin;
 import com.learnersacademy.model.Student;
+import com.learnersacademy.model.Subject;
 import com.learnersacademy.model.Teacher;
 
 @WebServlet("/portal")
@@ -139,6 +140,33 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		// Deletes particular Teacher from the database
 		case "teacher-delete":
 			teacherDelete(request, response);
+			break;
+
+		// Subject options
+
+		// Opens Subject registration form in the Portal
+		case "subject-registration":
+			subjectRegistration(request, response);
+			break;
+		// Adds subject to the database or asks user to try again if error
+		case "subject-add":
+			subjectAdd(request, response);
+			break;
+		// Lists all Subject from the database
+		case "subject-list":
+			subjectList(request, response);
+			break;
+		// Opens Subject edit form in the Portal
+		case "subject-edit-form":
+			subjectEditForm(request, response);
+			break;
+		// Edits particular Subject or asks user to try again if error
+		case "subject-edit":
+			subjectEdit(request, response);
+			break;
+		// Deletes particular Subject from the database
+		case "subject-delete":
+			subjectDelete(request, response);
 			break;
 
 		default:
@@ -362,13 +390,6 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		adminList(request, response);
 	}
 
-	
-	
-	
-	
-	
-	
-	
 	// Teacher methods
 	private void teacherRegistration(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -675,6 +696,190 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 		// Listing again
 		studentList(request, response);
+	}
+
+	// Subject methods
+	private void subjectRegistration(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		request.setAttribute("errorMessage", null);
+
+		request.setAttribute("side-menu", "subject");
+		request.setAttribute("main-content", "subject-registration");
+		request.setAttribute("next-action", null);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void subjectAdd(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		// Creating list of all Subject from database
+		List<Subject> listOfSubject = subjectDAO.getAllSubject();
+
+		boolean shouldSaveSubject = true;
+
+		String subjectName = request.getParameter("subjectName");
+		String subjectShortcut = request.getParameter("subjectShortcut");
+
+		// Preventing duplicate studentId
+		for (Subject subject : listOfSubject) {
+			String tempSubjectName = subject.getSubjectName();
+			String tempSubjectShortcut = subject.getSubjectShortcut();
+
+			if (tempSubjectName.equalsIgnoreCase(subjectName)
+					|| tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
+
+				shouldSaveSubject = false;
+
+				request.setAttribute("errorMessage",
+						"The subjectName you entered: > " + subjectName + " < or the subjectShortcut you entered: > "
+								+ subjectShortcut + " < is already taken, please try again!");
+
+				request.setAttribute("side-menu", "subject");
+				request.setAttribute("main-content", "subject-registration");
+				request.setAttribute("next-action", null);
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+				dispatcher.forward(request, response);
+			}
+		}
+
+		if (shouldSaveSubject) {
+			Subject subject = new Subject();
+			subject.setSubjectName(subjectName);
+			subject.setSubjectShortcut(subjectShortcut);
+
+			subjectDAO.saveSubject(subject);
+
+			request.setAttribute("errorMessage", null);
+
+			subjectList(request, response);
+		}
+
+	}
+
+	private void subjectList(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		List<Subject> listOfSubject = subjectDAO.getAllSubject();
+
+		request.setAttribute("listOfSubject", listOfSubject);
+
+		request.setAttribute("errorMessage", null);
+
+		request.setAttribute("side-menu", "subject");
+		request.setAttribute("main-content", "subject-list");
+		request.setAttribute("next-action", null);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void subjectEditForm(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		int id = Integer.parseInt(request.getParameter("id"));
+		Subject existingSubject = subjectDAO.getSubject(id);
+
+		request.setAttribute("id", existingSubject.getId());
+		request.setAttribute("subjectName", existingSubject.getSubjectName());
+		request.setAttribute("subjectShortcut", existingSubject.getSubjectShortcut());
+
+		// request.setAttribute("errorMessage", request.getAttribute("errorMessage"));
+
+		request.setAttribute("side-menu", "subject");
+		request.setAttribute("main-content", "subject-edit-form");
+		request.setAttribute("next-action", null);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void subjectEdit(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		List<Subject> listOfSubject = subjectDAO.getAllSubject();
+
+		boolean shouldEditSubject = true;
+
+		int id = Integer.parseInt(request.getParameter("id"));
+
+		String subjectName = request.getParameter("subjectName");
+		String subjectShortcut = request.getParameter("subjectShortcut");
+
+		// Preventing duplicate studentId
+		for (Subject subject : listOfSubject) {
+
+			String tempSubjectName = subject.getSubjectName();
+			String tempSubjectShortcut = subject.getSubjectShortcut();
+
+			if (tempSubjectName.equalsIgnoreCase(subjectName)
+					|| tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
+
+				if (tempSubjectName.equalsIgnoreCase(subjectName)) {
+					// If the subjectName exists in the database it checks is if it belongs to the
+					// object we are editing
+					if (!subjectName.equalsIgnoreCase(subjectDAO.getSubject(id).getSubjectName())) {
+						// If the subjectName exists in the database but it doesen't belong to the
+						// object
+						// we are editing
+
+						shouldEditSubject = false;
+
+						request.setAttribute("errorMessage",
+								"The subjectName you entered: > " + subjectName
+										+ " < or the subjectShortcut you entered: > " + subjectShortcut
+										+ " < is already taken, please try again!");
+
+						subjectEditForm(request, response);
+					}
+				}
+
+				if (tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
+					// If the subjectShortcut exists in the database it checks is if it belongs to
+					// the
+					// object we are editing
+					if (!subjectShortcut.equalsIgnoreCase(subjectDAO.getSubject(id).getSubjectShortcut())) {
+						// If the subjectShortcut exists in the database but it doesen't belong to the
+						// object
+						// we are editing
+
+						shouldEditSubject = false;
+
+						request.setAttribute("errorMessage",
+								"The subjectName you entered: > " + subjectName
+										+ " < or the subjectShortcut you entered: > " + subjectShortcut
+										+ " < is already taken, please try again!");
+
+						subjectEditForm(request, response);
+					}
+				}
+
+			}
+		}
+
+		// Preventing duplicates
+		if (shouldEditSubject) {
+
+			Subject subject = new Subject(Integer.parseInt(request.getParameter("id")),
+					request.getParameter("subjectName"), request.getParameter("subjectShortcut"));
+
+			subjectDAO.updateSubject(subject);
+
+			subjectList(request, response);
+		}
+	}
+
+	private void subjectDelete(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		// Deleting by id
+		int id = Integer.parseInt(request.getParameter("id"));
+		subjectDAO.deleteSubject(id);
+
+		// Listing again
+		subjectList(request, response);
 	}
 
 	@SuppressWarnings("unused")
