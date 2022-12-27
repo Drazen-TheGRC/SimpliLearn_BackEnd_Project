@@ -359,8 +359,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 					shouldEditAdmin = false;
 
-					request.setAttribute("errorMessage",
-							"The username you entered: > " + username + " < is already taken, please try again!");
+					request.setAttribute("errorMessage", "The username you entered: > " + username + " < is already taken, please try again!");
 
 					adminEditForm(request, response);
 				}
@@ -424,8 +423,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 				shouldSaveTeacher = false;
 
-				request.setAttribute("errorMessage", "The accreditationId you entered: > " + accreditationId
-						+ " < is already taken, please try again!");
+				request.setAttribute("errorMessage", "The accreditation ID you entered: > " + accreditationId + " < is already taken, please try again!");
 
 				request.setAttribute("side-menu", "teacher");
 				request.setAttribute("main-content", "teacher-registration");
@@ -513,8 +511,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 					shouldEditTeacher = false;
 
-					request.setAttribute("errorMessage", "The accreditationId you entered: > " + accreditationId
-							+ " < is already taken, please try again!");
+					request.setAttribute("errorMessage", "The accreditation ID you entered: > " + accreditationId + " < is already taken, please try again!");
 
 					teacherEditForm(request, response);
 				}
@@ -578,8 +575,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 				shouldSaveStudent = false;
 
-				request.setAttribute("errorMessage",
-						"The studentId you entered: > " + studentId + " < is already taken, please try again!");
+				request.setAttribute("errorMessage", "The student ID you entered: > " + studentId + " < is already taken, please try again!");
 
 				request.setAttribute("side-menu", "student");
 				request.setAttribute("main-content", "student-registration");
@@ -667,8 +663,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 					shouldEditStudent = false;
 
-					request.setAttribute("errorMessage",
-							"The studentId you entered: > " + studentId + " < is already taken, please try again!");
+					request.setAttribute("errorMessage", "The student ID you entered: > " + studentId + " < is already taken, please try again!");
 
 					studentEditForm(request, response);
 				}
@@ -699,6 +694,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 	}
 
 	// Subject methods
+	
 	private void subjectRegistration(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -727,15 +723,40 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		for (Subject subject : listOfSubject) {
 			String tempSubjectName = subject.getSubjectName();
 			String tempSubjectShortcut = subject.getSubjectShortcut();
-
-			if (tempSubjectName.equalsIgnoreCase(subjectName)
-					|| tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
+			
+			if (tempSubjectName.equalsIgnoreCase(subjectName) && tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
 
 				shouldSaveSubject = false;
 
-				request.setAttribute("errorMessage",
-						"The subjectName you entered: > " + subjectName + " < or the subjectShortcut you entered: > "
-								+ subjectShortcut + " < is already taken, please try again!");
+				request.setAttribute("errorMessage", "The subject name you entered: > " + subjectName + " < and the subject shortcut you entered: > " + subjectShortcut + " < are both already taken, please try again!");
+
+				request.setAttribute("side-menu", "subject");
+				request.setAttribute("main-content", "subject-registration");
+				request.setAttribute("next-action", null);
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+				dispatcher.forward(request, response);
+			}
+
+			if (tempSubjectName.equalsIgnoreCase(subjectName)) {
+
+				shouldSaveSubject = false;
+
+				request.setAttribute("errorMessage", "The subject name you entered: > " + subjectName + " < is already taken, please try again!");
+
+				request.setAttribute("side-menu", "subject");
+				request.setAttribute("main-content", "subject-registration");
+				request.setAttribute("next-action", null);
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+				dispatcher.forward(request, response);
+			}
+			
+			if (tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
+
+				shouldSaveSubject = false;
+
+				request.setAttribute("errorMessage", "The subject shortcut you entered: > " + subjectShortcut + " < is already taken, please try again!");
 
 				request.setAttribute("side-menu", "subject");
 				request.setAttribute("main-content", "subject-registration");
@@ -815,48 +836,54 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			String tempSubjectName = subject.getSubjectName();
 			String tempSubjectShortcut = subject.getSubjectShortcut();
 
-			if (tempSubjectName.equalsIgnoreCase(subjectName)
-					|| tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
+			if (tempSubjectName.equalsIgnoreCase(subjectName) && tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
 
-				if (tempSubjectName.equalsIgnoreCase(subjectName)) {
-					// If the subjectName exists in the database it checks is if it belongs to the
-					// object we are editing
-					if (!subjectName.equalsIgnoreCase(subjectDAO.getSubject(id).getSubjectName())) {
-						// If the subjectName exists in the database but it doesen't belong to the
-						// object
-						// we are editing
+				if (!subjectName.equalsIgnoreCase(subjectDAO.getSubject(id).getSubjectName()) && !tempSubjectShortcut.equalsIgnoreCase(subjectDAO.getSubject(id).getSubjectShortcut())) {
+					// If the subjectName and subjectShortcut exist in the database but it doesen't belong to the
+					// object
+					// we are editing
 
-						shouldEditSubject = false;
+					shouldEditSubject = false;
 
-						request.setAttribute("errorMessage",
-								"The subjectName you entered: > " + subjectName
-										+ " < or the subjectShortcut you entered: > " + subjectShortcut
-										+ " < is already taken, please try again!");
+					request.setAttribute("errorMessage", "The subject name you entered: > " + subjectName + " < and the subject shortcut you entered: > " + subjectShortcut + " < are both already taken, please try again!");
 
-						subjectEditForm(request, response);
-					}
+					subjectEditForm(request, response);
 				}
 
-				if (tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
-					// If the subjectShortcut exists in the database it checks is if it belongs to
-					// the
-					// object we are editing
-					if (!subjectShortcut.equalsIgnoreCase(subjectDAO.getSubject(id).getSubjectShortcut())) {
-						// If the subjectShortcut exists in the database but it doesen't belong to the
-						// object
-						// we are editing
+			}
+			
+			
+			if (tempSubjectName.equalsIgnoreCase(subjectName)) {
+				// If the subjectName exists in the database it checks is if it belongs to the
+				// object we are editing
+				if (!subjectName.equalsIgnoreCase(subjectDAO.getSubject(id).getSubjectName())) {
+					// If the subjectName exists in the database but it doesen't belong to the
+					// object
+					// we are editing
 
-						shouldEditSubject = false;
+					shouldEditSubject = false;
 
-						request.setAttribute("errorMessage",
-								"The subjectName you entered: > " + subjectName
-										+ " < or the subjectShortcut you entered: > " + subjectShortcut
-										+ " < is already taken, please try again!");
+					request.setAttribute("errorMessage", "The subject name you entered: > " + subjectName + " < is already taken, please try again!");
 
-						subjectEditForm(request, response);
-					}
+					subjectEditForm(request, response);
 				}
+			}
 
+			if (tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
+				// If the subjectShortcut exists in the database it checks is if it belongs to
+				// the
+				// object we are editing
+				if (!subjectShortcut.equalsIgnoreCase(subjectDAO.getSubject(id).getSubjectShortcut())) {
+					// If the subjectShortcut exists in the database but it doesen't belong to the
+					// object
+					// we are editing
+
+					shouldEditSubject = false;
+
+					request.setAttribute("errorMessage", "The subject shortcut you entered: > " + subjectShortcut + " < is already taken, please try again!");
+
+					subjectEditForm(request, response);
+				}
 			}
 		}
 
@@ -881,6 +908,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		// Listing again
 		subjectList(request, response);
 	}
+	
 
 	@SuppressWarnings("unused")
 	private void skeletonMethod(HttpServletRequest request, HttpServletResponse response)
