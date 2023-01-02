@@ -35,10 +35,10 @@
 			</tr>
 			<tr>
 				<td align="right">
-					<label for="accreditationId">Teacher AccreditationId ID:</label>
+					<label for="accreditationId">Teacher Accreditation ID:</label>
 				</td>
 				<td>
-					<input type="text" id="accreditationId" name="accreditationId" placeholder="Teacher AccreditationId ID" value="${accreditationId}" required>
+					<input type="text" id="accreditationId" name="accreditationId" placeholder="Teacher Accreditation ID" value="${accreditationId}" required>
 				</td>
 			</tr>
 			<tr>

@@ -38,7 +38,7 @@
 					<label for="accreditationId">Teacher Accreditation ID:</label>
 				</td>
 				<td>
-					<input type="text" id="accreditationId" name="accreditationId" placeholder="Teacher AccreditationId ID" value="" required>
+					<input type="text" id="accreditationId" name="accreditationId" placeholder="Teacher Accreditation ID" value="" required>
 				</td>
 			</tr>
 			<tr>
