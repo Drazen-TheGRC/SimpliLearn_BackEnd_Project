@@ -1,6 +1,10 @@
 package com.learnersacademy.web;
 
 import java.io.IOException;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,10 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.learnersacademy.dao.AdminDAO;
+import com.learnersacademy.dao.ClassLectureDAO;
 import com.learnersacademy.dao.StudentDAO;
 import com.learnersacademy.dao.SubjectDAO;
 import com.learnersacademy.dao.TeacherDAO;
 import com.learnersacademy.model.Admin;
+import com.learnersacademy.model.ClassLecture;
 import com.learnersacademy.model.Student;
 import com.learnersacademy.model.Subject;
 import com.learnersacademy.model.Teacher;
@@ -29,12 +35,14 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 	StudentDAO studentDAO;
 	SubjectDAO subjectDAO;
 	TeacherDAO teacherDAO;
+	ClassLectureDAO classLectrureDAO;
 
 	public void init(ServletConfig config) throws ServletException {
 		adminDAO = new AdminDAO();
 		studentDAO = new StudentDAO();
 		subjectDAO = new SubjectDAO();
 		teacherDAO = new TeacherDAO();
+		classLectrureDAO = new ClassLectureDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -168,6 +176,60 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		case "subject-delete":
 			subjectDelete(request, response);
 			break;
+			
+			
+			
+			
+			
+			// class options
+
+			// Opens Class registration form in the Portal
+			case "class-registration":
+				classLectrureRegistration(request, response);
+				break;
+			// Adds Class to the database or asks user to try again if error
+			case "class-add":
+				classLectrureAdd(request, response);
+				break;
+			// Lists all Class from the database
+			case "class-list":
+				//classLectrureList(request, response);
+				break;
+			// Opens Class edit form in the Portal
+			case "class-edit-form":
+				//classLectrureEditForm(request, response);
+				break;
+			// Edits particular Class or asks user to try again if error
+			case "class-edit":
+				//classLectrureEdit(request, response);
+				break;
+			// Deletes particular Class from the database
+			case "class-delete":
+				//classLectrureDelete(request, response);
+				break;
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 
 		default:
 			logout(request, response);
@@ -908,6 +970,205 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		// Listing again
 		subjectList(request, response);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// Class methods
+		private void classLectrureRegistration(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException {
+
+			request.setAttribute("errorMessage", null);
+
+			request.setAttribute("side-menu", "class");
+			request.setAttribute("main-content", "class-registration");
+			request.setAttribute("next-action", null);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+			dispatcher.forward(request, response);
+		}
+
+		private void classLectrureAdd(HttpServletRequest request, HttpServletResponse response)
+				throws IOException, ServletException {
+
+
+			int subjectId = Integer.parseInt(request.getParameter("subject"));
+			String date = request.getParameter("date");
+			String time = request.getParameter("time");
+			
+
+			ClassLecture classLecture = new ClassLecture();
+			SubjectDAO subject = new SubjectDAO();
+			
+			
+			classLecture.setSubject(subject.getSubject(subjectId));
+			
+			String datePattern = "MM-dd-yyyy";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+			try {
+				classLecture.setDate(simpleDateFormat.parse(date));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			String timePattern = "hh:mm";
+			SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(timePattern);
+			try {
+				classLecture.setTime((Time)simpleTimeFormat.parse(timePattern));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			classLecture.setStudentList(null);
+
+			classLectrureDAO.saveClassLecture(classLecture);
+			
+			request.setAttribute("errorMessage", null);
+
+			classLectureList(request, response);
+
+		}
+
+		private void classLectureList(HttpServletRequest request, HttpServletResponse response)
+				throws IOException, ServletException {
+
+			List<ClassLecture> listOfClassLecture = classLectrureDAO.getAllClassLecture();
+
+			request.setAttribute("listOfClassLecture", listOfClassLecture);
+
+			request.setAttribute("errorMessage", null);
+
+			request.setAttribute("side-menu", "class");
+			request.setAttribute("main-content", "class-list");
+			request.setAttribute("next-action", null);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+			dispatcher.forward(request, response);
+		}
+/*
+		private void adminEditForm(HttpServletRequest request, HttpServletResponse response)
+				throws IOException, ServletException {
+
+			int id = Integer.parseInt(request.getParameter("id"));
+			Admin existingAdmin = adminDAO.getAdmin(id);
+
+			request.setAttribute("id", existingAdmin.getId());
+			request.setAttribute("firstName", existingAdmin.getFirstName());
+			request.setAttribute("lastName", existingAdmin.getLastName());
+			request.setAttribute("username", existingAdmin.getUsername());
+			request.setAttribute("password", existingAdmin.getPassword());
+
+			// request.setAttribute("errorMessage", request.getAttribute("errorMessage"));
+
+			request.setAttribute("side-menu", "admin");
+			request.setAttribute("main-content", "admin-edit-form");
+			request.setAttribute("next-action", null);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+			dispatcher.forward(request, response);
+		}
+
+		private void adminEdit(HttpServletRequest request, HttpServletResponse response)
+				throws IOException, ServletException {
+
+			List<Admin> listOfAdmin = adminDAO.getAllAdmin();
+
+			boolean shouldEditAdmin = true;
+
+			int id = Integer.parseInt(request.getParameter("id"));
+			String username = request.getParameter("username");
+
+			for (Admin admin : listOfAdmin) {
+				String tempUsername = admin.getUsername();
+				// Checks if the username exists in the database
+				if (tempUsername.equalsIgnoreCase(username)) {
+					// If the username exists in the database it checks is if it belongs to the
+					// object we are editing
+					if (!username.equalsIgnoreCase(adminDAO.getAdmin(id).getUsername())) {
+						// If the username exists in the database but it doesen't belong to the object
+						// we are editing
+
+						shouldEditAdmin = false;
+
+						request.setAttribute("errorMessage", "The username you entered: > " + username + " < is already taken, please try again!");
+
+						adminEditForm(request, response);
+					}
+				}
+			}
+
+			// Preventing duplicates
+			if (shouldEditAdmin) {
+
+				Admin admin = new Admin(Integer.parseInt(request.getParameter("id")), request.getParameter("firstName"),
+						request.getParameter("lastName"), request.getParameter("username"),
+						request.getParameter("password"));
+
+				adminDAO.updateAdmin(admin);
+
+				adminList(request, response);
+			}
+		}
+
+		private void adminDelete(HttpServletRequest request, HttpServletResponse response)
+				throws IOException, ServletException {
+			// Deleting by id
+			int id = Integer.parseInt(request.getParameter("id"));
+			adminDAO.deleteAdmin(id);
+
+			// Listing again
+			adminList(request, response);
+		}
+
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	@SuppressWarnings("unused")

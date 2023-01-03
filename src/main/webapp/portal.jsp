@@ -51,6 +51,12 @@
 						<button name="next-action" value="subject-list" type="submit">List All Subjects</button>
 				</form>
 				
+				<form action="<%=request.getContextPath()%>/portal" method="post">
+						<input name="side-menu" value="class" type="hidden" />
+						<input name="main-content" value="class-list" type="hidden" />
+							
+						<button name="next-action" value="class-list" type="submit">List All Classes</button>
+				</form>
 				
 
 				<br>
@@ -130,6 +136,18 @@
 			         	
 			      	case "subject-list":%>
 			   			<jsp:include page="subject-list.jsp" />
+			     		<%break;
+			     		
+			     		
+			      	case "class-registration":%>
+      				<jsp:include page="class-registration.jsp" />
+	         			<%break;
+			      	case "class-edit-form":%>
+			      		<jsp:include page="class-edit-form.jsp" />
+			         	<%break;
+			         	
+			      	case "class-list":%>
+			   			<jsp:include page="class-list.jsp" />
 			     		<%break;
 			      	
 
