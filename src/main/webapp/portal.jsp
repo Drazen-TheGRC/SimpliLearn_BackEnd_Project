@@ -50,7 +50,7 @@
 							
 						<button name="next-action" value="subject-list" type="submit">List All Subjects</button>
 				</form>
-				
+				<br>
 				<form action="<%=request.getContextPath()%>/portal" method="post">
 						<input name="side-menu" value="class" type="hidden" />
 						<input name="main-content" value="class-list" type="hidden" />

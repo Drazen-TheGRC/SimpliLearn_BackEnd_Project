@@ -30,6 +30,9 @@ public class Student implements Serializable {
 	@Column(name = "age")
 	private int age;
 
+	@Column(name = "classX")
+	private String classX;
+
 	// Getters and setters
 
 	public int getId() {
@@ -72,6 +75,14 @@ public class Student implements Serializable {
 		this.age = age;
 	}
 
+	public String getClassX() {
+		return classX;
+	}
+
+	public void setClassX(String classX) {
+		this.classX = classX;
+	}
+
 	// Constructors
 
 	public Student() {
@@ -86,6 +97,17 @@ public class Student implements Serializable {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;
+
+	}
+
+	public Student(String studentId, String firstName, String lastName, int age, String classX) {
+		super();
+
+		this.studentId = studentId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.classX = classX;
 	}
 
 	public Student(int id, String studentId, String firstName, String lastName, int age) {
@@ -95,6 +117,16 @@ public class Student implements Serializable {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;
+
 	}
 
+	public Student(int id, String studentId, String firstName, String lastName, int age, String classX) {
+		super();
+		this.id = id;
+		this.studentId = studentId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.classX = classX;
+	}
 }

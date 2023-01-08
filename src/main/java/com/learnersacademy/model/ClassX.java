@@ -1,10 +1,7 @@
 package com.learnersacademy.model;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,28 +11,20 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "classes")
-public class ClassLecture implements Serializable {
+public class ClassX implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "subject")
 	private Subject subject;
 
 	@Column(name = "date")
 	private Date date;
-	
-	@Column(name = "time")
-	private Time time;
-	
-	@Column(name = "student_list")
-	private List<Student> studentList;
-	
-	
-	// Getters and setters
 
+	// Getters and setters
 	public int getId() {
 		return id;
 	}
@@ -60,52 +49,25 @@ public class ClassLecture implements Serializable {
 		this.date = date;
 	}
 
-	public Time getTime() {
-		return time;
-	}
-
-	public void setTime(Time time) {
-		this.time = time;
-	}
-
-	public List<Student> getStudentList() {
-		return studentList;
-	}
-
-	public void setStudentList(List<Student> studentList) {
-		this.studentList = studentList;
-	}
-
-	
 	// Constructors
-	
-	public ClassLecture() {
+
+	public ClassX() {
 		super();
-		
+
 	}
-	
-	public ClassLecture(Subject subject, Date date, Time time, List<Student> studentList) {
+
+	public ClassX(Subject subject, Date date) {
 		super();
-		
+
 		this.subject = subject;
 		this.date = date;
-		this.time = time;
-		this.studentList = studentList;
 	}
-	
-	public ClassLecture(int id, Subject subject, Date date, Time time, List<Student> studentList) {
+
+	public ClassX(int id, Subject subject, Date date) {
 		super();
 		this.id = id;
 		this.subject = subject;
 		this.date = date;
-		this.time = time;
-		this.studentList = studentList;
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }

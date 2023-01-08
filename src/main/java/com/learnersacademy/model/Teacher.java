@@ -11,9 +11,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "teachers")
-public class Teacher implements Serializable{
+public class Teacher implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -29,9 +29,12 @@ public class Teacher implements Serializable{
 
 	@Column(name = "age")
 	private int age;
-	
-	
-	// Getters and setters 
+
+	@Column(name = "classX")
+	private String classX;
+
+	// Getters and setters
+
 	public int getId() {
 		return id;
 	}
@@ -72,22 +75,41 @@ public class Teacher implements Serializable{
 		this.age = age;
 	}
 
+	public String getClassX() {
+		return classX;
+	}
+
+	public void setClassX(String classX) {
+		this.classX = classX;
+	}
+
 	// Constructors
-	
+
 	public Teacher() {
 		super();
-		
+
 	}
-	
+
 	public Teacher(String accreditationId, String firstName, String lastName, int age) {
 		super();
-		
+
 		this.accreditationId = accreditationId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;
+
 	}
-	
+
+	public Teacher(String accreditationId, String firstName, String lastName, int age, String classX) {
+		super();
+
+		this.accreditationId = accreditationId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.classX = classX;
+	}
+
 	public Teacher(int id, String accreditationId, String firstName, String lastName, int age) {
 		super();
 		this.id = id;
@@ -95,7 +117,17 @@ public class Teacher implements Serializable{
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;
+
 	}
-	
-	
+
+	public Teacher(int id, String accreditationId, String firstName, String lastName, int age, String classX) {
+		super();
+		this.id = id;
+		this.accreditationId = accreditationId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.classX = classX;
+	}
+
 }

@@ -23,7 +23,10 @@ public class Subject implements Serializable {
 
 	@Column(name = "subject_shortcut")
 	private String subjectShortcut;
-	
+
+	@Column(name = "classX")
+	private String classX;
+
 	// Getters and setters
 
 	public int getId() {
@@ -49,7 +52,15 @@ public class Subject implements Serializable {
 	public void setSubjectShortcut(String subjectShortcut) {
 		this.subjectShortcut = subjectShortcut;
 	}
-	
+
+	public String getClassX() {
+		return classX;
+	}
+
+	public void setClassX(String classX) {
+		this.classX = classX;
+	}
+
 	// Constructors
 
 	public Subject() {
@@ -62,6 +73,15 @@ public class Subject implements Serializable {
 
 		this.subjectName = subjectName;
 		this.subjectShortcut = subjectShortcut;
+
+	}
+
+	public Subject(String subjectName, String subjectShortcut, String classX) {
+		super();
+
+		this.subjectName = subjectName;
+		this.subjectShortcut = subjectShortcut;
+		this.classX = classX;
 	}
 
 	public Subject(int id, String subjectName, String subjectShortcut) {
@@ -69,6 +89,15 @@ public class Subject implements Serializable {
 		this.id = id;
 		this.subjectName = subjectName;
 		this.subjectShortcut = subjectShortcut;
+
+	}
+
+	public Subject(int id, String subjectName, String subjectShortcut, String classX) {
+		super();
+		this.id = id;
+		this.subjectName = subjectName;
+		this.subjectShortcut = subjectShortcut;
+		this.classX = classX;
 	}
 
 }

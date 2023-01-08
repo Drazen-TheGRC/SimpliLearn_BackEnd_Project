@@ -6,17 +6,17 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.learnersacademy.model.ClassLecture;
+import com.learnersacademy.model.ClassX;
 import com.learnersacademy.util.HibernateUtil;
 
-public class ClassLectureDAO {
+public class ClassDAO {
 
-	// saveClassLecture()
-	public void saveClassLecture(ClassLecture classLecture) {
+	// saveClassX()
+	public void saveClassX(ClassX classX) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			session.save(classLecture);
+			session.save(classX);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -26,12 +26,12 @@ public class ClassLectureDAO {
 		}
 	}
 
-	// updateClassLecture()
-	public void updateClassLecture(ClassLecture classLecture) {
+	// updateClassX()
+	public void updateClassX(ClassX classX) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			session.update(classLecture);
+			session.update(classX);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -41,15 +41,15 @@ public class ClassLectureDAO {
 		}
 	}
 
-	// deleteClassLecture()
-	public void deleteClassLecture(int id) {
+	// deleteClassX()
+	public void deleteClassX(int id) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			ClassLecture classLecture = session.get(ClassLecture.class, id);
-			if (classLecture != null) {
-				session.delete(classLecture);
-				System.out.println("classLecture is deleted");
+			ClassX classX = session.get(ClassX.class, id);
+			if (classX != null) {
+				session.delete(classX);
+				System.out.println("classX is deleted");
 			}
 			transaction.commit();
 		} catch (Exception e) {
@@ -60,13 +60,13 @@ public class ClassLectureDAO {
 		}
 	}
 
-	// getClassLecture()
-	public ClassLecture getClassLecture(int id) {
+	// getClassX()
+	public ClassX getClassX(int id) {
 		Transaction transaction = null;
-		ClassLecture classLecture = null;
+		ClassX classX = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-			classLecture = session.get(ClassLecture.class, id);
+			classX = session.get(ClassX.class, id);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -74,21 +74,21 @@ public class ClassLectureDAO {
 			}
 			e.printStackTrace();
 		}
-		return classLecture;
+		return classX;
 	}
 
-	// getAllClassLecture()
+	// getAllClassX()
 	@SuppressWarnings("unchecked")
-	public List<ClassLecture> getAllClassLecture() {
+	public List<ClassX> getAllClassX() {
 
 		Transaction transaction = null;
 
-		List<ClassLecture> listOfClassLecture = new ArrayList<ClassLecture>();
+		List<ClassX> listOfClassX = new ArrayList<ClassX>();
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 
-			listOfClassLecture = session.createQuery("from ClassLecture").getResultList();
+			listOfClassX = session.createQuery("from ClassX").getResultList();
 
 			transaction.commit();
 		} catch (Exception e) {
@@ -97,6 +97,6 @@ public class ClassLectureDAO {
 			}
 			e.printStackTrace();
 		}
-		return listOfClassLecture;
+		return listOfClassX;
 	}
 }
