@@ -1,8 +1,6 @@
 package com.learnersacademy.web;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -1025,24 +1023,17 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			// Need to do as usual but also change hasClass on subject teacher and students
 			int subjectId = Integer.parseInt(request.getParameter("subject"));
 			String date = request.getParameter("date");
-			
-			
-			
-			
+
 			ClassX classX = new ClassX();
 			SubjectDAO subject = new SubjectDAO();
 			
 			
-			classX.setSubject(subject.getSubject(subjectId));
+			classX.setSubject(subject.getSubject(subjectId).getSubjectName());
 			
-			String datePattern = "MM-dd-yyyy";
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
-			try {
-				classX.setDate(simpleDateFormat.parse(date));
-			} catch (ParseException e) {
-
-				e.printStackTrace();
-			}
+			//String datePattern = "MM-dd-yyyy";
+			//SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+			
+			classX.setDate(date);
 			
 			
 
@@ -1059,7 +1050,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 			List<ClassX> listOfClassX = classDAO.getAllClassX();
 
-			request.setAttribute("listOfClassLecture", listOfClassX);
+			request.setAttribute("listOfClassX", listOfClassX);
 
 			request.setAttribute("errorMessage", null);
 
@@ -1138,14 +1129,15 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		private void classXDelete(HttpServletRequest request, HttpServletResponse response)
 				throws IOException, ServletException {
 			
-			//First remove all hasClass in subject teacher and students
+			//First remove all related info in all subject teacher and students Make methods clean subject class and students 
+			//and call them below those should list all students and if classX is eaqual to class name than classX = null
 			
 			// Deleting by id
 			int id = Integer.parseInt(request.getParameter("id"));
-			adminDAO.deleteAdmin(id);
+			classDAO.deleteClassX(id);
 
 			// Listing again
-			adminList(request, response);
+			classXList(request, response);
 		}
 
 

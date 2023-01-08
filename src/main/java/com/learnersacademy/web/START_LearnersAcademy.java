@@ -12,10 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.learnersacademy.dao.AdminDAO;
+import com.learnersacademy.dao.ClassDAO;
 import com.learnersacademy.dao.StudentDAO;
 import com.learnersacademy.dao.SubjectDAO;
 import com.learnersacademy.dao.TeacherDAO;
 import com.learnersacademy.model.Admin;
+import com.learnersacademy.model.ClassX;
 import com.learnersacademy.model.Student;
 import com.learnersacademy.model.Subject;
 import com.learnersacademy.model.Teacher;
@@ -28,12 +30,14 @@ public class START_LearnersAcademy extends HttpServlet {
 	StudentDAO studentDAO;
 	SubjectDAO subjectDAO;
 	TeacherDAO teacherDAO;
+	ClassDAO classDAO;
 
 	public void init(ServletConfig config) throws ServletException {
 		adminDAO = new AdminDAO();
 		studentDAO = new StudentDAO();
 		subjectDAO = new SubjectDAO();
 		teacherDAO = new TeacherDAO();
+		classDAO = new ClassDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -93,10 +97,36 @@ public class START_LearnersAcademy extends HttpServlet {
 		Subject subject2 = new Subject("Mathematics", "MATH");
 		Subject subject3 = new Subject("Chemistry", "CHEM");
 		Subject subject4 = new Subject("Biology", "BIO");
+		Subject subject5 = new Subject("History", "HIS");
+		Subject subject6 = new Subject("Art", "ART");
+		Subject subject7 = new Subject("Geography", "GEO");
+		
 		subjectDAO.saveSubject(subject1);
 		subjectDAO.saveSubject(subject2);
 		subjectDAO.saveSubject(subject3);
 		subjectDAO.saveSubject(subject4);
+		subjectDAO.saveSubject(subject5);
+		subjectDAO.saveSubject(subject6);
+		subjectDAO.saveSubject(subject7);
+		
+		
+		//String datePattern = "dd-MM-yyyy";
+		//SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+		//Date date = simpleDateFormat.parse("25-05-2023");
+			
+		
+		subject1.setClassX(subject1.getSubjectName());
+		ClassX classX1 = new ClassX(subject1.getSubjectName(), "25-10-2023");
+		classDAO.saveClassX(classX1);
+		
+		subject2.setClassX(subject2.getSubjectName());
+		ClassX classX2 = new ClassX(subject2.getSubjectName(), "26-10-2023");
+		classDAO.saveClassX(classX2);
+
+		subject3.setClassX(subject3.getSubjectName());
+		ClassX classX3 = new ClassX(subject3.getSubjectName(), "24-10-2023");
+		classDAO.saveClassX(classX3);
+		
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("admin-registration-initial.jsp");
 		dispatcher.forward(request, response);

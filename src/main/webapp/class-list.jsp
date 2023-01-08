@@ -62,18 +62,26 @@
 			
 			<th>Subject</th>
 			<th>Date</th>
-			<th>Time</th>
 			<th>Student List</th>
 			<th>Edit</th>
 			<th>Delete</th>
 		</tr>
-		<c:forEach var="class" items="${listOfClass}">
+		<c:forEach var="classX" items="${listOfClassX}">
 			<tr>
 				
-				<td><c:out value="${class.subject}" /></td>
-				<td><c:out value="${class.date}" /></td>
-				<td><c:out value="${class.time}" /></td>
-				<td><c:out value="${class.studentList}" /></td>
+				<td><c:out value="${classX.subject}" /></td>
+				<td><c:out value="${classX.date}" /></td>
+				<!-- Need a button which will open a new page with dynamically generated header per class subject and a list of students who have classX property with that class name
+				on that new page we need to be able to add more students and re-list the list or to delete students  -->
+				<td>
+					<form action="<%=request.getContextPath()%>/portal"	method="post">
+						<input name="side-menu" value="class" type="hidden" />
+						<input name="main-content" value="class-student-list" type="hidden" />
+						
+						<input name="next-action" value="class-student-list" type="hidden" />
+						<button name="id" value="${classX.id}" type="submit" class="">Student List</button>
+					</form>
+				</td>
 
 
 				<td>
@@ -82,7 +90,7 @@
 						<input name="main-content" value="class-edit-form" type="hidden" />
 						
 						<input name="next-action" value="class-edit-form" type="hidden" />
-						<button name="id" value="${class.id}" type="submit" class="">Edit</button>
+						<button name="id" value="${classX.id}" type="submit" class="">Edit</button>
 					</form>
 				</td>
 				
@@ -92,7 +100,7 @@
 						<input name="main-content" value="class-registration" type="hidden" />
 						
 						<input name="next-action" value="class-delete" type="hidden" />
-						<button name="id" value="${class.id}" type="submit" class="">Delete</button>
+						<button name="id" value="${classX.id}" type="submit" class="">Delete</button>
 					</form>
 
 				</td>
