@@ -115,16 +115,34 @@ public class START_LearnersAcademy extends HttpServlet {
 		//Date date = simpleDateFormat.parse("25-05-2023");
 			
 		
+		
+		
+		
 		subject1.setClassX(subject1.getSubjectName());
-		ClassX classX1 = new ClassX(subject1.getSubjectName(), "25-10-2023");
+		subjectDAO.updateSubject(subject1);
+		student1.setClassX(subject1.getSubjectShortcut());
+		student2.setClassX(subject1.getSubjectShortcut());
+		studentDAO.updateStudent(student1);
+		studentDAO.updateStudent(student2);
+		ClassX classX1 = new ClassX(subject1.getSubjectName(), "2023-02-25");
 		classDAO.saveClassX(classX1);
 		
+		
+		
 		subject2.setClassX(subject2.getSubjectName());
-		ClassX classX2 = new ClassX(subject2.getSubjectName(), "26-10-2023");
+		subjectDAO.updateSubject(subject2);
+		student3.setClassX(subject2.getSubjectShortcut());
+		studentDAO.updateStudent(student3);
+		ClassX classX2 = new ClassX(subject2.getSubjectName(), "2023-02-15");
 		classDAO.saveClassX(classX2);
 
+		
+		
 		subject3.setClassX(subject3.getSubjectName());
-		ClassX classX3 = new ClassX(subject3.getSubjectName(), "24-10-2023");
+		subjectDAO.updateSubject(subject3);
+		student4.setClassX(subject3.getSubjectShortcut());
+		studentDAO.updateStudent(student4);
+		ClassX classX3 = new ClassX(subject3.getSubjectName(), "2023-03-18");
 		classDAO.saveClassX(classX3);
 		
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +41,7 @@
 				</td>
 				<td>
 					<select id="subject" name="subject" required>
-					    <c:forEach var="subject" items="${listOfSubjectAvailable}">
+					    <c:forEach var="subject" items="${listOfFREESubject}">
 					        <option value="${subject.id}">${subject.subjectName}</option>
 					    </c:forEach>
 					</select>
@@ -53,15 +54,6 @@
 				</td>
 				<td>
 					<input type="date" id="date" name="date" placeholder="" value="" required>
-				</td>
-			</tr>
-			
-			<tr>
-				<td align="right">
-					<label for="time">Time:</label>
-				</td>
-				<td>
-					<input type="time" id="time" name="time" placeholder="" value="" min="09:00" max="18:00" step="3600" required>
 				</td>
 			</tr>
 			

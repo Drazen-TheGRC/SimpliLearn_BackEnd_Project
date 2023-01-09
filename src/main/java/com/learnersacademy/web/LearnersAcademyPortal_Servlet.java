@@ -1,6 +1,7 @@
 package com.learnersacademy.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -1002,8 +1003,24 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 	
 	
 	// ClassX methods
+
 		private void classXRegistration(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
+			
+			List<Subject> listOfAllSubject = subjectDAO.getAllSubject();
+			List<Subject> listOfFREESubject = new ArrayList<>();;
+			for (Subject subject : listOfAllSubject) {
+				if (subject.getClassX()==null) {
+					listOfFREESubject.add(subject);
+				}
+			}
+			if (listOfFREESubject.isEmpty()) {
+				subjectRegistration(request, response);
+			}
+			
+			
+			
+			request.setAttribute("listOfFREESubject", listOfFREESubject);
 			
 			request.setAttribute("errorMessage", null);
 
@@ -1020,23 +1037,21 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 				throws IOException, ServletException {
 
 
-			// Need to do as usual but also change hasClass on subject teacher and students
+			// Updating selected subject 
 			int subjectId = Integer.parseInt(request.getParameter("subject"));
-			String date = request.getParameter("date");
-
+			Subject subject = subjectDAO.getSubject(subjectId);
+			subject.setClassX(subject.getSubjectName());
+			subjectDAO.updateSubject(subject);
+			
+			// Setting Class subject
 			ClassX classX = new ClassX();
-			SubjectDAO subject = new SubjectDAO();
-			
-			
-			classX.setSubject(subject.getSubject(subjectId).getSubjectName());
-			
-			//String datePattern = "MM-dd-yyyy";
-			//SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
-			
+			classX.setSubject(subject.getSubjectName());
+	
+			// Setting Class date
+			String date = request.getParameter("date");
 			classX.setDate(date);
-			
-			
 
+			// Saving Class
 			classDAO.saveClassX(classX);
 			
 			request.setAttribute("errorMessage", null);

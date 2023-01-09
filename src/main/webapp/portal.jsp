@@ -29,7 +29,14 @@
 		</tr>
 		<tr>
 			<td style="width: 25%" align="center">
-			
+				<form action="<%=request.getContextPath()%>/portal" method="post">
+						<input name="side-menu" value="class" type="hidden" />
+						<input name="main-content" value="class-list" type="hidden" />
+							
+						<button name="next-action" value="class-list" type="submit">List All Classes</button>
+				</form>
+				<br>
+				<br>
 				<form action="<%=request.getContextPath()%>/portal" method="post">
 						<input name="side-menu" value="student" type="hidden" />
 						<input name="main-content" value="student-list" type="hidden" />
@@ -50,14 +57,6 @@
 							
 						<button name="next-action" value="subject-list" type="submit">List All Subjects</button>
 				</form>
-				<br>
-				<form action="<%=request.getContextPath()%>/portal" method="post">
-						<input name="side-menu" value="class" type="hidden" />
-						<input name="main-content" value="class-list" type="hidden" />
-							
-						<button name="next-action" value="class-list" type="submit">List All Classes</button>
-				</form>
-				
 
 				<br>
 				<hr width="90%">
