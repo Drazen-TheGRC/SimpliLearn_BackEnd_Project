@@ -19,10 +19,13 @@ public class ClassX implements Serializable {
 
 	@Column(name = "subject")
 	private String subject;
+	
+	@Column(name = "teacher")
+	private String teacher;
 
 	@Column(name = "date")
 	private String date;
-	
+
 	// Getters and setters
 	
 	public int getId() {
@@ -41,6 +44,14 @@ public class ClassX implements Serializable {
 		this.subject = subject;
 	}
 
+	public String getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(String teacher) {
+		this.teacher = teacher;
+	}
+
 	public String getDate() {
 		return date;
 	}
@@ -50,24 +61,28 @@ public class ClassX implements Serializable {
 	}
 	
 	// Constructors
-
 	public ClassX() {
 		super();
-;
+		
 	}
-
-	public ClassX(String subject, String date) {
+	
+	public ClassX(String subject, String teacher, String date) {
 		super();
-
+		
 		this.subject = subject;
+		this.teacher = teacher;
 		this.date = date;
 	}
 	
-	public ClassX(int id, String subject, String date) {
+	public ClassX(int id, String subject, String teacher, String date) {
 		super();
 		this.id = id;
 		this.subject = subject;
+		this.teacher = teacher;
 		this.date = date;
 	}
+
+
+	
 
 }

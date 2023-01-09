@@ -61,6 +61,7 @@
 		<tr>
 			
 			<th>Subject</th>
+			<th>Teacher</th>
 			<th>Date (yyyy-mm-dd)</th>
 			<th>Student List</th>
 			<th>Edit</th>
@@ -70,6 +71,8 @@
 			<tr>
 				
 				<td><c:out value="${classX.subject}" /></td>
+				<td><c:out value="${classX.teacher}" /></td>
+				
 				<td align="center"><c:out value="${classX.date}" /></td>
 				<!-- Need a button which will open a new page with dynamically generated header per class subject and a list of students who have classX property with that class name
 				on that new page we need to be able to add more students and re-list the list or to delete students  -->

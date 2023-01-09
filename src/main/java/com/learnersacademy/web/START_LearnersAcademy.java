@@ -119,10 +119,13 @@ public class START_LearnersAcademy extends HttpServlet {
 		
 		ClassX classX1 = new ClassX();
 		classX1.setSubject(subject1.getSubjectName());
+		classX1.setTeacher(teacher1.getFirstName()+" "+teacher1.getLastName());
 		classX1.setDate("2023-02-25");
 		classDAO.saveClassX(classX1);
 		subject1.setClassX(classX1.getSubject());
 		subjectDAO.updateSubject(subject1);
+		teacher1.setClassX(classX1.getSubject());
+		teacherDAO.updateTeacher(teacher1);
 		student1.setClassX(classX1.getSubject());
 		student2.setClassX(classX1.getSubject());
 		studentDAO.updateStudent(student1);
@@ -132,10 +135,13 @@ public class START_LearnersAcademy extends HttpServlet {
 		
 		ClassX classX2 = new ClassX();
 		classX2.setSubject(subject2.getSubjectName());
+		classX2.setTeacher(teacher2.getFirstName()+" "+teacher2.getLastName());
 		classX2.setDate("2023-03-20");
 		classDAO.saveClassX(classX2);
 		subject2.setClassX(classX2.getSubject());
 		subjectDAO.updateSubject(subject2);
+		teacher2.setClassX(classX2.getSubject());
+		teacherDAO.updateTeacher(teacher2);
 		student3.setClassX(classX2.getSubject());
 		student4.setClassX(classX2.getSubject());
 		studentDAO.updateStudent(student3);
@@ -144,10 +150,13 @@ public class START_LearnersAcademy extends HttpServlet {
 		
 		ClassX classX3 = new ClassX();
 		classX3.setSubject(subject3.getSubjectName());
+		classX3.setTeacher(teacher3.getFirstName()+" "+teacher3.getLastName());
 		classX3.setDate("2023-03-20");
 		classDAO.saveClassX(classX3);
 		subject3.setClassX(classX3.getSubject());
 		subjectDAO.updateSubject(subject3);
+		teacher3.setClassX(classX3.getSubject());
+		teacherDAO.updateTeacher(teacher3);
 		student5.setClassX(classX3.getSubject());
 		student6.setClassX(classX3.getSubject());
 		studentDAO.updateStudent(student5);
