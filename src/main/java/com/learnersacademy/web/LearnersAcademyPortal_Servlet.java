@@ -1147,6 +1147,48 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			//First remove all related info in all subject teacher and students Make methods clean subject class and students 
 			//and call them below those should list all students and if classX is eaqual to class name than classX = null
 			
+
+				
+				ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("id")));
+				
+				// Cleaning Subject ClassX
+				List<Subject> listOfAllSubject = subjectDAO.getAllSubject();
+				for (Subject subject : listOfAllSubject) {
+					if (subject.getClassX()!=null) {
+						if (subject.getClassX().equalsIgnoreCase(classX.getSubject())) {
+							subject.setClassX(null);
+							subjectDAO.updateSubject(subject);
+						}
+					}
+				}
+				
+				
+				
+				// Cleaning Student ClassX
+				List<Student> listOfAllStudent = studentDAO.getAllStudent();
+				for (Student student : listOfAllStudent) {
+					if (student.getClassX()!=null) {
+						if (student.getClassX().equalsIgnoreCase(classX.getSubject())) {
+							student.setClassX(null);
+							studentDAO.updateStudent(student);
+						}
+					}
+				}
+				
+				
+				// Cleaning Teacher ClassX
+				List<Teacher> listOfAllTeacher = teacherDAO.getAllTeacher();
+				for (Teacher teacher : listOfAllTeacher) {
+					if (teacher.getClassX()!=null) {
+						if (teacher.getClassX().equalsIgnoreCase(classX.getSubject())) {
+							teacher.setClassX(null);
+							teacherDAO.updateTeacher(teacher);
+						}
+					}
+				}
+
+			
+			
 			// Deleting by id
 			int id = Integer.parseInt(request.getParameter("id"));
 			classDAO.deleteClassX(id);
@@ -1161,7 +1203,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 	
 	
 	
-	
+
 	
 	
 	

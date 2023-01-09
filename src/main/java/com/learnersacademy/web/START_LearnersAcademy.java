@@ -117,34 +117,41 @@ public class START_LearnersAcademy extends HttpServlet {
 		
 		
 		
-		
-		subject1.setClassX(subject1.getSubjectName());
+		ClassX classX1 = new ClassX();
+		classX1.setSubject(subject1.getSubjectName());
+		classX1.setDate("2023-02-25");
+		classDAO.saveClassX(classX1);
+		subject1.setClassX(classX1.getSubject());
 		subjectDAO.updateSubject(subject1);
-		student1.setClassX(subject1.getSubjectShortcut());
-		student2.setClassX(subject1.getSubjectShortcut());
+		student1.setClassX(classX1.getSubject());
+		student2.setClassX(classX1.getSubject());
 		studentDAO.updateStudent(student1);
 		studentDAO.updateStudent(student2);
-		ClassX classX1 = new ClassX(subject1.getSubjectName(), "2023-02-25");
-		classDAO.saveClassX(classX1);
 		
 		
 		
-		subject2.setClassX(subject2.getSubjectName());
-		subjectDAO.updateSubject(subject2);
-		student3.setClassX(subject2.getSubjectShortcut());
-		studentDAO.updateStudent(student3);
-		ClassX classX2 = new ClassX(subject2.getSubjectName(), "2023-02-15");
+		ClassX classX2 = new ClassX();
+		classX2.setSubject(subject2.getSubjectName());
+		classX2.setDate("2023-03-20");
 		classDAO.saveClassX(classX2);
+		subject2.setClassX(classX2.getSubject());
+		subjectDAO.updateSubject(subject2);
+		student3.setClassX(classX2.getSubject());
+		student4.setClassX(classX2.getSubject());
+		studentDAO.updateStudent(student3);
+		studentDAO.updateStudent(student4);
 
 		
-		
-		subject3.setClassX(subject3.getSubjectName());
-		subjectDAO.updateSubject(subject3);
-		student4.setClassX(subject3.getSubjectShortcut());
-		studentDAO.updateStudent(student4);
-		ClassX classX3 = new ClassX(subject3.getSubjectName(), "2023-03-18");
+		ClassX classX3 = new ClassX();
+		classX3.setSubject(subject3.getSubjectName());
+		classX3.setDate("2023-03-20");
 		classDAO.saveClassX(classX3);
-		
+		subject3.setClassX(classX3.getSubject());
+		subjectDAO.updateSubject(subject3);
+		student5.setClassX(classX3.getSubject());
+		student6.setClassX(classX3.getSubject());
+		studentDAO.updateStudent(student5);
+		studentDAO.updateStudent(student6);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("admin-registration-initial.jsp");
 		dispatcher.forward(request, response);
