@@ -1,7 +1,11 @@
 package com.learnersacademy.web;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -186,7 +190,12 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 				break;
 			// Adds Class to the database or asks user to try again if error
 			case "class-add":
+			try {
 				classXAdd(request, response);
+			} catch (IOException | ServletException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				break;
 			// Lists all Class from the database
 			case "class-list":
@@ -194,11 +203,21 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 				break;
 			// Opens Class edit form in the Portal
 			case "class-edit-form":
+			try {
 				classXEditForm(request, response);
+			} catch (IOException | ServletException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				break;
 			// Edits particular Class or asks user to try again if error
 			case "class-edit":
+			try {
 				classXEdit(request, response);
+			} catch (IOException | ServletException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				break;
 			// Deletes particular Class from the database
 			case "class-delete":
@@ -1018,10 +1037,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 				subjectRegistration(request, response);
 			}
 			request.setAttribute("listOfFREESubject", listOfFREESubject);
-			
-			
-			
-			
+
 			List<Teacher> listOfAllTeacher = teacherDAO.getAllTeacher();
 			List<Teacher> listOfFREETeacher = new ArrayList<>();;
 			for (Teacher teacher : listOfAllTeacher) {
@@ -1033,13 +1049,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 				teacherRegistration(request, response);
 			}
 			request.setAttribute("listOfFREETeacher", listOfFREETeacher);
-			
-			
-			
-			
-			
-			
-			
+
 			request.setAttribute("errorMessage", null);
 
 			request.setAttribute("side-menu", "class");
@@ -1052,12 +1062,10 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 		
 		private void classXAdd(HttpServletRequest request, HttpServletResponse response)
-				throws IOException, ServletException {
-
+				throws IOException, ServletException, ParseException {
 
 			ClassX classX = new ClassX();
 			
-
 			int subjectId = Integer.parseInt(request.getParameter("subjectId"));
 			Subject subject = subjectDAO.getSubject(subjectId);
 			classX.setSubjectId(subject.getId());
@@ -1066,8 +1074,12 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			Teacher teacher = teacherDAO.getTeacher(teacherId);
 			classX.setTeacherId(teacher.getId());
 
+			
 			String date = request.getParameter("date");
-			classX.setDate(date);
+			Date dateFromJSP = new SimpleDateFormat("yyyy-MM-dd").parse(date);  
+			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+			String dateFormated = dateFormat.format(dateFromJSP);
+			classX.setDate(dateFormated);
 			
 			
 			subject.setClassX(classX.getSubject().getSubjectName());
@@ -1104,21 +1116,60 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		}
 
 		private void classXEditForm(HttpServletRequest request, HttpServletResponse response)
-				throws IOException, ServletException {
+				throws IOException, ServletException, ParseException {
 
 			int id = Integer.parseInt(request.getParameter("id"));
-			Admin existingAdmin = adminDAO.getAdmin(id);
+			ClassX classX = classDAO.getClassX(id);
 
-			request.setAttribute("id", existingAdmin.getId());
-			request.setAttribute("firstName", existingAdmin.getFirstName());
-			request.setAttribute("lastName", existingAdmin.getLastName());
-			request.setAttribute("username", existingAdmin.getUsername());
-			request.setAttribute("password", existingAdmin.getPassword());
+			
+			
+			
+			request.setAttribute("subjectSelected", classX.getSubject());
+			List<Subject> listOfAllSubject = subjectDAO.getAllSubject();
+			List<Subject> listOfFREESubject = new ArrayList<>();;
+			for (Subject subject : listOfAllSubject) {
+				if (subject.getClassX()==null) {
+					listOfFREESubject.add(subject);
+				}
+			}
+			if (listOfFREESubject.isEmpty()) {
+				subjectRegistration(request, response);
+			}
+			request.setAttribute("listOfFREESubject", listOfFREESubject);
+			
+			
+			
+			request.setAttribute("teacherSelected", classX.getTeacher());
+			List<Teacher> listOfAllTeacher = teacherDAO.getAllTeacher();
+			List<Teacher> listOfFREETeacher = new ArrayList<>();;
+			for (Teacher teacher : listOfAllTeacher) {
+				if (teacher.getClassX()==null) {
+					listOfFREETeacher.add(teacher);
+				}
+			}
+			if (listOfFREETeacher.isEmpty()) {
+				teacherRegistration(request, response);
+			}
+			request.setAttribute("listOfFREETeacher", listOfFREETeacher);
+
+			//String date = request.getParameter("date");
+			//Date dateFromJSP = new SimpleDateFormat("yyyy-MM-dd").parse(date);  
+			//DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+			//String dateFormated = dateFormat.format(dateFromJSP);
+			//classX.setDate(dateFormated);
+			
+			
+			String date = classX.getDate();
+			Date dateFromDB = new SimpleDateFormat("dd-MMM-yyyy").parse(date);  
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String dateFormated = dateFormat.format(dateFromDB);
+			
+			request.setAttribute("date", dateFormated);
 
 			// request.setAttribute("errorMessage", request.getAttribute("errorMessage"));
 
-			request.setAttribute("side-menu", "admin");
-			request.setAttribute("main-content", "admin-edit-form");
+			request.setAttribute("side-menu", "class");
+			request.setAttribute("main-content", "class-edit-form");
 			request.setAttribute("next-action", null);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
@@ -1126,45 +1177,43 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		}
 
 		private void classXEdit(HttpServletRequest request, HttpServletResponse response)
-				throws IOException, ServletException {
+				throws IOException, ServletException, ParseException {
 
-			List<Admin> listOfAdmin = adminDAO.getAllAdmin();
+			// if no changes all ok for each subject, teacher, and students
+			// if there are changes in that case we need to clean all of them and assign new values
+			// We need to update classX
 
-			boolean shouldEditAdmin = true;
+			ClassX classX = new ClassX();
+			
+			int subjectId = Integer.parseInt(request.getParameter("subjectId"));
+			Subject subject = subjectDAO.getSubject(subjectId);
+			classX.setSubjectId(subject.getId());
+			
+			int teacherId = Integer.parseInt(request.getParameter("teacherId"));
+			Teacher teacher = teacherDAO.getTeacher(teacherId);
+			classX.setTeacherId(teacher.getId());
 
-			int id = Integer.parseInt(request.getParameter("id"));
-			String username = request.getParameter("username");
+			
+			String date = request.getParameter("date");
+			Date dateFromJSP = new SimpleDateFormat("yyyy-MM-dd").parse(date);  
+			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+			String dateFormated = dateFormat.format(dateFromJSP);
+			classX.setDate(dateFormated);
+			
+			
+			subject.setClassX(classX.getSubject().getSubjectName());
+			subjectDAO.updateSubject(subject);
+			
 
-			for (Admin admin : listOfAdmin) {
-				String tempUsername = admin.getUsername();
-				// Checks if the username exists in the database
-				if (tempUsername.equalsIgnoreCase(username)) {
-					// If the username exists in the database it checks is if it belongs to the
-					// object we are editing
-					if (!username.equalsIgnoreCase(adminDAO.getAdmin(id).getUsername())) {
-						// If the username exists in the database but it doesen't belong to the object
-						// we are editing
+			teacher.setClassX(classX.getSubject().getSubjectName());
+			teacherDAO.updateTeacher(teacher);
+			
+			// Saving Class
+			classDAO.saveClassX(classX);
+			
+			request.setAttribute("errorMessage", null);
 
-						shouldEditAdmin = false;
-
-						request.setAttribute("errorMessage", "The username you entered: > " + username + " < is already taken, please try again!");
-
-						adminEditForm(request, response);
-					}
-				}
-			}
-
-			// Preventing duplicates
-			if (shouldEditAdmin) {
-
-				Admin admin = new Admin(Integer.parseInt(request.getParameter("id")), request.getParameter("firstName"),
-						request.getParameter("lastName"), request.getParameter("username"),
-						request.getParameter("password"));
-
-				adminDAO.updateAdmin(admin);
-
-				adminList(request, response);
-			}
+			classXList(request, response);
 		}
 
 		private void classXDelete(HttpServletRequest request, HttpServletResponse response)

@@ -65,7 +65,7 @@
 			
 			<th>Subject</th>
 			<th>Teacher</th>
-			<th>Date (yyyy-mm-dd)</th>
+			<th>Date</th>
 			<th>Student List</th>
 			<th>Edit</th>
 			<th>Delete</th>
