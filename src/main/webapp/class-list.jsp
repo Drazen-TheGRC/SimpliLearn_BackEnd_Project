@@ -17,7 +17,10 @@
 			
 			if(loggedUser == null){
 				response.sendRedirect("login.jsp");
-			}		
+			}
+			
+			
+			String emptySpace = " ";
 		%>
 		<h1>Class List</h1>
 
@@ -70,8 +73,8 @@
 		<c:forEach var="classX" items="${listOfClassX}">
 			<tr>
 				
-				<td><c:out value="${classX.subject}" /></td>
-				<td><c:out value="${classX.teacher}" /></td>
+				<td><c:out value="${classX.getSubject().getSubjectName()}" /></td>
+				<td><c:out value="${classX.getTeacher().getFirstName()}" /> <c:out value="${classX.getTeacher().getLastName()}" /></td>
 				
 				<td align="center"><c:out value="${classX.date}" /></td>
 				<!-- Need a button which will open a new page with dynamically generated header per class subject and a list of students who have classX property with that class name

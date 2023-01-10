@@ -1017,10 +1017,28 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			if (listOfFREESubject.isEmpty()) {
 				subjectRegistration(request, response);
 			}
-			
-			
-			
 			request.setAttribute("listOfFREESubject", listOfFREESubject);
+			
+			
+			
+			
+			List<Teacher> listOfAllTeacher = teacherDAO.getAllTeacher();
+			List<Teacher> listOfFREETeacher = new ArrayList<>();;
+			for (Teacher teacher : listOfAllTeacher) {
+				if (teacher.getClassX()==null) {
+					listOfFREETeacher.add(teacher);
+				}
+			}
+			if (listOfFREETeacher.isEmpty()) {
+				teacherRegistration(request, response);
+			}
+			request.setAttribute("listOfFREETeacher", listOfFREETeacher);
+			
+			
+			
+			
+			
+			
 			
 			request.setAttribute("errorMessage", null);
 
@@ -1037,20 +1055,28 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 				throws IOException, ServletException {
 
 
-			// Updating selected subject 
-			int subjectId = Integer.parseInt(request.getParameter("subject"));
-			Subject subject = subjectDAO.getSubject(subjectId);
-			subject.setClassX(subject.getSubjectName());
-			subjectDAO.updateSubject(subject);
-			
-			// Setting Class subject
 			ClassX classX = new ClassX();
-			classX.setSubject(subject.getSubjectName());
-	
-			// Setting Class date
+			
+
+			int subjectId = Integer.parseInt(request.getParameter("subjectId"));
+			Subject subject = subjectDAO.getSubject(subjectId);
+			classX.setSubjectId(subject.getId());
+			
+			int teacherId = Integer.parseInt(request.getParameter("teacherId"));
+			Teacher teacher = teacherDAO.getTeacher(teacherId);
+			classX.setTeacherId(teacher.getId());
+
 			String date = request.getParameter("date");
 			classX.setDate(date);
+			
+			
+			subject.setClassX(classX.getSubject().getSubjectName());
+			subjectDAO.updateSubject(subject);
+			
 
+			teacher.setClassX(classX.getSubject().getSubjectName());
+			teacherDAO.updateTeacher(teacher);
+			
 			// Saving Class
 			classDAO.saveClassX(classX);
 			
@@ -1155,7 +1181,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 				List<Subject> listOfAllSubject = subjectDAO.getAllSubject();
 				for (Subject subject : listOfAllSubject) {
 					if (subject.getClassX()!=null) {
-						if (subject.getClassX().equalsIgnoreCase(classX.getSubject())) {
+						if (subject.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
 							subject.setClassX(null);
 							subjectDAO.updateSubject(subject);
 						}
@@ -1168,7 +1194,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 				List<Student> listOfAllStudent = studentDAO.getAllStudent();
 				for (Student student : listOfAllStudent) {
 					if (student.getClassX()!=null) {
-						if (student.getClassX().equalsIgnoreCase(classX.getSubject())) {
+						if (student.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
 							student.setClassX(null);
 							studentDAO.updateStudent(student);
 						}
@@ -1180,7 +1206,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 				List<Teacher> listOfAllTeacher = teacherDAO.getAllTeacher();
 				for (Teacher teacher : listOfAllTeacher) {
 					if (teacher.getClassX()!=null) {
-						if (teacher.getClassX().equalsIgnoreCase(classX.getSubject())) {
+						if (teacher.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
 							teacher.setClassX(null);
 							teacherDAO.updateTeacher(teacher);
 						}

@@ -87,10 +87,12 @@ public class START_LearnersAcademy extends HttpServlet {
 		Teacher teacher2 = new Teacher("LA-1954-002", "Joseph", "Hernandez", 54);
 		Teacher teacher3 = new Teacher("LA-1960-003", "Eliza", "Walker", 60);
 		Teacher teacher4 = new Teacher("LA-1957-004", "Samuel", "Gonzalez", 57);
+		Teacher teacher5 = new Teacher("LA-1957-005", "Margaret", "Wilson", 37);
 		teacherDAO.saveTeacher(teacher1);
 		teacherDAO.saveTeacher(teacher2);
 		teacherDAO.saveTeacher(teacher3);
 		teacherDAO.saveTeacher(teacher4);
+		teacherDAO.saveTeacher(teacher5);
 		
 		// Subject starter
 		Subject subject1 = new Subject("English", "ENG");
@@ -118,47 +120,47 @@ public class START_LearnersAcademy extends HttpServlet {
 		
 		
 		ClassX classX1 = new ClassX();
-		classX1.setSubject(subject1.getSubjectName());
-		classX1.setTeacher(teacher1.getFirstName()+" "+teacher1.getLastName());
+		classX1.setSubjectId(subject1.getId());
+		classX1.setTeacherId(teacher1.getId());
 		classX1.setDate("2023-02-25");
 		classDAO.saveClassX(classX1);
-		subject1.setClassX(classX1.getSubject());
+		subject1.setClassX(classX1.getSubject().getSubjectName());
 		subjectDAO.updateSubject(subject1);
-		teacher1.setClassX(classX1.getSubject());
+		teacher1.setClassX(classX1.getSubject().getSubjectName());
 		teacherDAO.updateTeacher(teacher1);
-		student1.setClassX(classX1.getSubject());
-		student2.setClassX(classX1.getSubject());
+		student1.setClassX(classX1.getSubject().getSubjectName());
+		student2.setClassX(classX1.getSubject().getSubjectName());
 		studentDAO.updateStudent(student1);
 		studentDAO.updateStudent(student2);
 		
 		
 		
 		ClassX classX2 = new ClassX();
-		classX2.setSubject(subject2.getSubjectName());
-		classX2.setTeacher(teacher2.getFirstName()+" "+teacher2.getLastName());
+		classX2.setSubjectId(subject2.getId());
+		classX2.setTeacherId(teacher2.getId());
 		classX2.setDate("2023-03-20");
 		classDAO.saveClassX(classX2);
-		subject2.setClassX(classX2.getSubject());
+		subject2.setClassX(classX2.getSubject().getSubjectName());
 		subjectDAO.updateSubject(subject2);
-		teacher2.setClassX(classX2.getSubject());
+		teacher2.setClassX(classX2.getSubject().getSubjectName());
 		teacherDAO.updateTeacher(teacher2);
-		student3.setClassX(classX2.getSubject());
-		student4.setClassX(classX2.getSubject());
+		student3.setClassX(classX2.getSubject().getSubjectName());
+		student4.setClassX(classX2.getSubject().getSubjectName());
 		studentDAO.updateStudent(student3);
 		studentDAO.updateStudent(student4);
 
 		
 		ClassX classX3 = new ClassX();
-		classX3.setSubject(subject3.getSubjectName());
-		classX3.setTeacher(teacher3.getFirstName()+" "+teacher3.getLastName());
+		classX3.setSubjectId(subject3.getId());
+		classX3.setTeacherId(teacher3.getId());
 		classX3.setDate("2023-03-20");
 		classDAO.saveClassX(classX3);
-		subject3.setClassX(classX3.getSubject());
+		subject3.setClassX(classX3.getSubject().getSubjectName());
 		subjectDAO.updateSubject(subject3);
-		teacher3.setClassX(classX3.getSubject());
+		teacher3.setClassX(classX3.getSubject().getSubjectName());
 		teacherDAO.updateTeacher(teacher3);
-		student5.setClassX(classX3.getSubject());
-		student6.setClassX(classX3.getSubject());
+		student5.setClassX(classX3.getSubject().getSubjectName());
+		student6.setClassX(classX3.getSubject().getSubjectName());
 		studentDAO.updateStudent(student5);
 		studentDAO.updateStudent(student6);
 

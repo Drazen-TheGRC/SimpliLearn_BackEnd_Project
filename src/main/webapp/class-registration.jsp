@@ -37,12 +37,26 @@
 			
 			<tr>
 				<td align="right">
-					<label for="subject">Subject:</label>
+					<label for="subjectId">Subject:</label>
 				</td>
 				<td>
-					<select id="subject" name="subject" required>
+					<select id="subjectId" name="subjectId" required>
 					    <c:forEach var="subject" items="${listOfFREESubject}">
 					        <option value="${subject.id}">${subject.subjectName}</option>
+					    </c:forEach>
+					</select>
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td align="right">
+					<label for="teacherId">Teacher:</label>
+				</td>
+				<td>
+					<select id="teacherId" name="teacherId" required>
+					    <c:forEach var="teacher" items="${listOfFREETeacher}">
+					        <option value="${teacher.id}">${teacher.firstName} ${teacher.lastName}</option>
 					    </c:forEach>
 					</select>
 				</td>
