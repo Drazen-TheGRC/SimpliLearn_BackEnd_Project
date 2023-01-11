@@ -75,6 +75,7 @@
 			
 			<tr>
 				<td colspan="2" align="center">
+					<input name="id" id="id" value="${id}" type="hidden" />
 					<button name="next-action" value="class-edit" type="submit" >Confirm Edits</button>
 				</td>
 			</tr>

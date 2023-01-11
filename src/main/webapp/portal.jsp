@@ -16,7 +16,7 @@
 			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 			String loggedUser = (String)session.getAttribute("username");
 			
-			if(loggedUser == null){
+			if(loggedUser == null || loggedUser.isEmpty()){
 				response.sendRedirect("login.jsp");
 			}		
 		%>

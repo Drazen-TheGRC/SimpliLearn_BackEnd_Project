@@ -1121,6 +1121,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("id"));
 			ClassX classX = classDAO.getClassX(id);
 
+			request.setAttribute("id", classX.getId());
 			
 			
 			
@@ -1152,13 +1153,6 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			}
 			request.setAttribute("listOfFREETeacher", listOfFREETeacher);
 
-			//String date = request.getParameter("date");
-			//Date dateFromJSP = new SimpleDateFormat("yyyy-MM-dd").parse(date);  
-			//DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-			//String dateFormated = dateFormat.format(dateFromJSP);
-			//classX.setDate(dateFormated);
-			
-			
 			String date = classX.getDate();
 			Date dateFromDB = new SimpleDateFormat("dd-MMM-yyyy").parse(date);  
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -1184,32 +1178,77 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			// We need to update classX
 
 			ClassX classX = new ClassX();
+			classX = classDAO.getClassX(Integer.parseInt(request.getParameter("id")));
 			
-			int subjectId = Integer.parseInt(request.getParameter("subjectId"));
-			Subject subject = subjectDAO.getSubject(subjectId);
-			classX.setSubjectId(subject.getId());
+			// If Teacher change
 			
-			int teacherId = Integer.parseInt(request.getParameter("teacherId"));
-			Teacher teacher = teacherDAO.getTeacher(teacherId);
-			classX.setTeacherId(teacher.getId());
+			
+			if (classX.getTeacherId() != Integer.parseInt(request.getParameter("teacherId"))) {
+			
+				Teacher oldTeacher = classX.getTeacher();
+				oldTeacher.setClassX(null);
+				teacherDAO.updateTeacher(oldTeacher);
+				
+				Teacher newTeacher = teacherDAO.getTeacher(Integer.parseInt(request.getParameter("teacherId")));
+				newTeacher.setClassX(subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId"))).getSubjectName());
+				teacherDAO.updateTeacher(newTeacher);
+				
+				classX.setTeacherId(Integer.parseInt(request.getParameter("teacherId")));
+			}
+			
+			
+			// if subject changed need to update the subject, need to update teacher, need to update students
+			if (!classX.getSubject().getSubjectName().equalsIgnoreCase(subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId"))).getSubjectName())) {
+				
+				// Updating all students
+				List<Student> listOfAllStudent = studentDAO.getAllStudent();
+				for (Student student : listOfAllStudent) {
+					if (student.getClassX()!=null && student.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
+						
+						student.setClassX(subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId"))).getSubjectName());
+						studentDAO.updateStudent(student);
+					}
+				}
+				
+				// Updating teacher
+				List<Teacher> listOfAllTeacher = teacherDAO.getAllTeacher();
+				for (Teacher teacher : listOfAllTeacher) {
+					if (teacher.getClassX()!=null && teacher.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
+						
+						teacher.setClassX(subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId"))).getSubjectName());
+						teacherDAO.updateTeacher(teacher);
+					}
+				}
+				
+				// Updating subject
+				List<Subject> listOfAllSubject = subjectDAO.getAllSubject();
+				for (Subject subject : listOfAllSubject) {
+					if (subject.getClassX()!=null && subject.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
+						
+						subject.setClassX(null);
+						subjectDAO.updateSubject(subject);
+					}
+				}
+				// end of updates regarding subject change except updating classX that needs to be updated at the end of the method
+				
+				
+				Subject subject = subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId")));
+				subject.setClassX(subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId"))).getSubjectName());
+				subjectDAO.updateSubject(subject);
+				classX.setSubjectId(Integer.parseInt(request.getParameter("subjectId")));
+			}
+			
 
-			
+			// Setting date
 			String date = request.getParameter("date");
 			Date dateFromJSP = new SimpleDateFormat("yyyy-MM-dd").parse(date);  
 			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 			String dateFormated = dateFormat.format(dateFromJSP);
 			classX.setDate(dateFormated);
-			
-			
-			subject.setClassX(classX.getSubject().getSubjectName());
-			subjectDAO.updateSubject(subject);
-			
 
-			teacher.setClassX(classX.getSubject().getSubjectName());
-			teacherDAO.updateTeacher(teacher);
 			
-			// Saving Class
-			classDAO.saveClassX(classX);
+			// Update Class
+			classDAO.updateClassX(classX);
 			
 			request.setAttribute("errorMessage", null);
 
