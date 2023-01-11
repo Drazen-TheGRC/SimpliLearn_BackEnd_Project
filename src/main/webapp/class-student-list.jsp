@@ -19,7 +19,7 @@
 				response.sendRedirect("login.jsp");
 			}		
 		%>
-		<h1>${subjectname} Class Details:</h1>
+		<h1>${subjectName} Class Details:</h1>
 
 	<hr>
 	<br>
@@ -61,7 +61,7 @@
 						<input name="side-menu" value="student" type="hidden" />
 						<input name="main-content" value="student-registration" type="hidden" />
 						
-						<input name="next-action" value="student-delete" type="hidden" />
+						<input name="next-action" value="student-class-delete" type="hidden" />
 						<button name="id" value="${student.id}" type="submit" class="">Remove from Class</button>
 					</form>
 
@@ -82,9 +82,11 @@
 								    </c:forEach>
 								</select>
 								<input name="side-menu" value="student" type="hidden" />
-								<input name="main-content" value="student-list" type="hidden" />
+								<input name="main-content" value="class-student-list" type="hidden" />
 									
-								<button name="next-action" value="student-list" type="submit">Add Student to Class</button>
+								<input name="classXId" value="${classXId}" type="hidden" />
+								<input name="subjectName" value="${subjectName}" type="hidden" />
+								<button name="next-action" value="student-class-after-add" type="submit">Add Student to Class</button>
 							</form>	
 							</td>
 						</tr>
