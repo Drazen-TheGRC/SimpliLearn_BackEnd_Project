@@ -201,6 +201,13 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			case "class-list":
 				classXList(request, response);
 				break;
+				
+				
+			case "class-student-list":
+				classXStudentList(request, response);
+				break;
+				
+				
 			// Opens Class edit form in the Portal
 			case "class-edit-form":
 			try {
@@ -1314,7 +1321,57 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 	
 	
-	
+		private void classXStudentList(HttpServletRequest request, HttpServletResponse response)
+				throws IOException, ServletException {
+
+			// get ID of Class and use it to get students on that class
+			// Also get all free students
+			
+			// All Students
+			List<Student> listOfAllStudent = studentDAO.getAllStudent();
+			
+			// Students on class
+			ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("id")));
+			List<Student> listOfAllStudentOnClass = new ArrayList<>();;
+			for (Student student : listOfAllStudent) {
+				
+				if (student.getClassX()!=null) {
+					if (student.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
+						listOfAllStudentOnClass.add(student);
+					}
+				}	
+			}
+
+			// Free students
+			List<Student> listOfFREEStudent = new ArrayList<>();;
+			for (Student student : listOfAllStudent) {
+				if (student.getClassX()==null) {
+					listOfFREEStudent.add(student);
+				}
+			}
+			
+
+
+
+			request.setAttribute("listOfAllStudentOnClass", listOfAllStudentOnClass);
+			request.setAttribute("listOfFREEStudent", listOfFREEStudent);
+			request.setAttribute("subjectname", classX.getSubject().getSubjectName());
+			request.setAttribute("teacherName", classX.getTeacher().getFirstName() + " " +classX.getTeacher().getLastName());
+			request.setAttribute("date", classX.getDate());
+			
+			
+			
+			
+
+			request.setAttribute("errorMessage", null);
+
+			request.setAttribute("side-menu", "class");
+			request.setAttribute("main-content", "class-student-list");
+			request.setAttribute("next-action", null);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+			dispatcher.forward(request, response);
+		}
 	
 	
 

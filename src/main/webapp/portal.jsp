@@ -149,7 +149,10 @@
 			   			<jsp:include page="class-list.jsp" />
 			     		<%break;
 			      	
-
+			      	case "class-student-list":%>
+		   			<jsp:include page="class-student-list.jsp" />
+		     		<%break;
+		     		
 			      		
 			    	default:
 			         	out.println("Select option on the side menu");
