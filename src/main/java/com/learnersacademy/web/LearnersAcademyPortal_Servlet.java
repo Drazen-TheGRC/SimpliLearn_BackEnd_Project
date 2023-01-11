@@ -606,9 +606,11 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		// Preventing duplicates
 		if (shouldEditTeacher) {
 
-			Teacher teacher = new Teacher(Integer.parseInt(request.getParameter("id")),
-					request.getParameter("accreditationId"), request.getParameter("firstName"),
-					request.getParameter("lastName"), Integer.parseInt(request.getParameter("age")));
+			Teacher teacher = teacherDAO.getTeacher(Integer.parseInt(request.getParameter("id")));
+			teacher.setAccreditationId(request.getParameter("accreditationId"));
+			teacher.setFirstName(request.getParameter("firstName"));
+			teacher.setLastName(request.getParameter("lastName"));
+			teacher.setAge(Integer.parseInt(request.getParameter("age")));
 
 			teacherDAO.updateTeacher(teacher);
 
@@ -757,10 +759,12 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 		// Preventing duplicates
 		if (shouldEditStudent) {
-
-			Student student = new Student(Integer.parseInt(request.getParameter("id")),
-					request.getParameter("studentId"), request.getParameter("firstName"),
-					request.getParameter("lastName"), Integer.parseInt(request.getParameter("age")));
+			
+			Student student = studentDAO.getStudent(Integer.parseInt(request.getParameter("id")));
+			student.setStudentId(request.getParameter("studentId"));
+			student.setFirstName(request.getParameter("firstName"));
+			student.setLastName(request.getParameter("lastName"));
+			student.setAge(Integer.parseInt(request.getParameter("age")));
 
 			studentDAO.updateStudent(student);
 
@@ -974,9 +978,12 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 		// Preventing duplicates
 		if (shouldEditSubject) {
-
-			Subject subject = new Subject(Integer.parseInt(request.getParameter("id")),
-					request.getParameter("subjectName"), request.getParameter("subjectShortcut"));
+			
+			
+			Subject subject = subjectDAO.getSubject(Integer.parseInt(request.getParameter("id")));
+			
+			subject.setSubjectName(request.getParameter("subjectName"));
+			subject.setSubjectShortcut(request.getParameter("subjectShortcut"));
 
 			subjectDAO.updateSubject(subject);
 

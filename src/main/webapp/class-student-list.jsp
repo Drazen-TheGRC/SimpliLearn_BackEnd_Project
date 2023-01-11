@@ -25,28 +25,17 @@
 	<br>
 
 	<table>
-	
-		
-
 		<tr>
-		
-		<td colspan="6">
-			<table style="width: 100%; border: 0px;">
-				<tr>
-
-					<td align="center">
-						<h4>Teacher: ${teacherName}</h4>
-					</td>
-					<td align="center">
-						<h4>Date: ${date}</h4>
-					</td>
-				</tr>
-			</table>
-		</td>			
+			<td align="center" colspan="3" >
+				<h4>Teacher: ${teacherName}</h4>
+			</td>
+			<td align="center" colspan="2" >
+				<h4>Date: ${date}</h4>
+			</td>
 		</tr>
 		
 		<tr>
-			<th colspan="6">
+			<th colspan="5">
 				<h2 >Student List:</h2>
 			</th>
 		</tr>
