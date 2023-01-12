@@ -1347,6 +1347,9 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			
 			// Students on class
 			ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("id")));
+			
+			
+			
 			List<Student> listOfAllStudentOnClass = new ArrayList<>();;
 			for (Student student : listOfAllStudent) {
 				
@@ -1368,12 +1371,14 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 
 
-			request.setAttribute("classXId", classX.getId());
+			request.setAttribute("classX", classX);
+			
 			request.setAttribute("listOfAllStudentOnClass", listOfAllStudentOnClass);
 			request.setAttribute("listOfFREEStudent", listOfFREEStudent);
-			request.setAttribute("subjectName", classX.getSubject().getSubjectName());
-			request.setAttribute("teacherName", classX.getTeacher().getFirstName() + " " +classX.getTeacher().getLastName());
-			request.setAttribute("date", classX.getDate());
+			
+			request.setAttribute("subject", classX.getSubject());
+			request.setAttribute("teacher", classX.getTeacher());
+			
 			
 			
 			
@@ -1388,6 +1393,34 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
 			dispatcher.forward(request, response);
 		}
+		
+		
+		private void studentClassXRemove(HttpServletRequest request, HttpServletResponse response)
+				throws IOException, ServletException {
+			
+			Student student = studentDAO.getStudent(Integer.parseInt(request.getParameter("id")));
+			student.setClassX(null);
+			studentDAO.updateStudent(student);
+			
+			classXStudentList(request, response);
+		}
+	
+		private void studentClassXAdd(HttpServletRequest request, HttpServletResponse response)
+				throws IOException, ServletException {
+			
+			ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("classXId")));
+			Student student = studentDAO.getStudent(Integer.parseInt(request.getParameter("studentId")));
+			
+			student.setClassX(classX.getSubject().getSubjectName());
+			studentDAO.updateStudent(student);
+			
+			
+			
+			classXStudentList(request, response);
+		}
+		
+		
+		
 	
 		
 		private void classXStudentListAfterAdd(HttpServletRequest request, HttpServletResponse response)
@@ -1444,25 +1477,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		}
 		
 	
-		private void studentClassXRemove(HttpServletRequest request, HttpServletResponse response)
-				throws IOException, ServletException {
-			
-			Student student = studentDAO.getStudent(Integer.parseInt(request.getParameter("id")));
-			student.setClassX(null);
-			studentDAO.updateStudent(student);
-			
-			classXStudentList(request, response);
-		}
-	
-		private void studentClassXAdd(HttpServletRequest request, HttpServletResponse response)
-				throws IOException, ServletException {
-			
-			Student student = studentDAO.getStudent(Integer.parseInt(request.getParameter("studentId")));
-			student.setClassX(request.getParameter("subjectName"));
-			studentDAO.updateStudent(student);
-			
-			classXStudentList(request, response);
-		}
+
 	
 	
 	

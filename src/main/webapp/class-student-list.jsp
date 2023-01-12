@@ -19,7 +19,7 @@
 				response.sendRedirect("login.jsp");
 			}		
 		%>
-		<h1>${subjectName} Class Details:</h1>
+		<h1>${subject.subjectName} Class Details:</h1>
 
 	<hr>
 	<br>
@@ -27,10 +27,10 @@
 	<table>
 		<tr>
 			<td align="center" colspan="3" >
-				<h4>Teacher: ${teacherName}</h4>
+				<h4>Teacher: ${teacher.firstName} ${teacher.lastName}</h4>
 			</td>
 			<td align="center" colspan="2" >
-				<h4>Date: ${date}</h4>
+				<h4>Date: ${classX.date}</h4>
 			</td>
 		</tr>
 		
@@ -84,8 +84,9 @@
 								<input name="side-menu" value="student" type="hidden" />
 								<input name="main-content" value="class-student-list" type="hidden" />
 									
-								<input name="classXId" value="${classXId}" type="hidden" />
-								<input name="subjectName" value="${subjectName}" type="hidden" />
+								<input name="classXId" value="${classX.id}" type="hidden" />
+								
+								<input name="subjectId" value="${subject.id}" type="hidden" />
 								<button name="next-action" value="student-class-after-add" type="submit">Add Student to Class</button>
 							</form>	
 							</td>
