@@ -61,6 +61,8 @@
 						<input name="side-menu" value="student" type="hidden" />
 						<input name="main-content" value="student-registration" type="hidden" />
 						
+						<input id="classXId" name="classXId" value="${classX.id}" type="hidden" />
+						
 						<input name="next-action" value="student-class-delete" type="hidden" />
 						<button name="id" value="${student.id}" type="submit" class="">Remove from Class</button>
 					</form>
@@ -84,10 +86,10 @@
 								<input name="side-menu" value="student" type="hidden" />
 								<input name="main-content" value="class-student-list" type="hidden" />
 									
-								<input name="classXId" value="${classX.id}" type="hidden" />
+								<input id="classXId" name="classXId" value="${classX.id}" type="hidden" />
 								
-								<input name="subjectId" value="${subject.id}" type="hidden" />
-								<button name="next-action" value="student-class-after-add" type="submit">Add Student to Class</button>
+								<!-- <input name="subjectId" value="${subject.id}" type="hidden" />-->
+								<button name="next-action" value="student-class-add" type="submit">Add Student to Class</button>
 							</form>	
 							</td>
 						</tr>

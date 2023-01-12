@@ -1346,7 +1346,22 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			List<Student> listOfAllStudent = studentDAO.getAllStudent();
 			
 			// Students on class
-			ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("id")));
+			
+			
+			
+			
+			ClassX classX = null;
+			HttpSession session = request.getSession();
+			if (request.getParameter("id")!=null) {
+				session.setAttribute("id", request.getParameter("id"));
+				classX = classDAO.getClassX(Integer.parseInt(request.getParameter("id")));
+			}else {
+				
+				classX = classDAO.getClassX(Integer.parseInt((String) session.getAttribute("id")));
+				
+			}
+			
+			
 			
 			
 			
@@ -1379,10 +1394,6 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			request.setAttribute("subject", classX.getSubject());
 			request.setAttribute("teacher", classX.getTeacher());
 			
-			
-			
-			
-			
 
 			request.setAttribute("errorMessage", null);
 
@@ -1398,42 +1409,71 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		private void studentClassXRemove(HttpServletRequest request, HttpServletResponse response)
 				throws IOException, ServletException {
 			
+			//HttpSession session = request.getSession();
+			//ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("classXId")));
+			//session.setAttribute("id", classX.getId());
+			
+			ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("classXId")));
+			
 			Student student = studentDAO.getStudent(Integer.parseInt(request.getParameter("id")));
+			
 			student.setClassX(null);
 			studentDAO.updateStudent(student);
 			
-			classXStudentList(request, response);
+			//request.setAttribute("classX", classX);
+			//RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+			//dispatcher.forward(request, response);
+			
+			classXList(request, response);
+			//classXStudentList(request, response);
 		}
 	
 		private void studentClassXAdd(HttpServletRequest request, HttpServletResponse response)
 				throws IOException, ServletException {
 			
+			//HttpSession session = request.getSession();
+			//ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("classXId")));
+			//session.setAttribute("id", classX.getId());
+			
 			ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("classXId")));
+			
 			Student student = studentDAO.getStudent(Integer.parseInt(request.getParameter("studentId")));
 			
 			student.setClassX(classX.getSubject().getSubjectName());
 			studentDAO.updateStudent(student);
 			
 			
+			//request.setAttribute("classX", classX);
+
+			//RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+			//dispatcher.forward(request, response);
 			
-			classXStudentList(request, response);
+			classXList(request, response);
+			//classXStudentList(request, response);
+			
 		}
 		
 		
-		
-	
-		
 		private void classXStudentListAfterAdd(HttpServletRequest request, HttpServletResponse response)
 				throws IOException, ServletException {
-
+			
 			// get ID of Class and use it to get students on that class
 			// Also get all free students
 			
 			// All Students
 			List<Student> listOfAllStudent = studentDAO.getAllStudent();
+
 			
+
 			// Students on class
-			ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("classXId")));
+			ClassX classX = (ClassX) request.getAttribute("classX");
+			
+			
+			
+			
+			
+			
+			
 			List<Student> listOfAllStudentOnClass = new ArrayList<>();;
 			for (Student student : listOfAllStudent) {
 				
