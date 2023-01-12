@@ -1002,6 +1002,17 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 	private void subjectDelete(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		// Deleting by id
+		
+		List<ClassX> listOfClassX = classDAO.getAllClassX();
+		
+		for (ClassX classX : listOfClassX) {
+			if (classX.getSubject().getSubjectName().equalsIgnoreCase(subjectDAO.getSubject(Integer.parseInt(request.getParameter("id"))).getSubjectName())) {
+				classDAO.deleteClassX(classX.getId());
+			}
+		}
+		
+		
+		
 		int id = Integer.parseInt(request.getParameter("id"));
 		subjectDAO.deleteSubject(id);
 
@@ -1208,8 +1219,15 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			if (classX.getTeacherId() != Integer.parseInt(request.getParameter("teacherId"))) {
 			
 				Teacher oldTeacher = classX.getTeacher();
-				oldTeacher.setClassX(null);
-				teacherDAO.updateTeacher(oldTeacher);
+				
+				
+				if (oldTeacher!=null) {
+					oldTeacher.setClassX(null);
+					teacherDAO.updateTeacher(oldTeacher);
+				}			
+				
+				
+				
 				
 				Teacher newTeacher = teacherDAO.getTeacher(Integer.parseInt(request.getParameter("teacherId")));
 				newTeacher.setClassX(subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId"))).getSubjectName());

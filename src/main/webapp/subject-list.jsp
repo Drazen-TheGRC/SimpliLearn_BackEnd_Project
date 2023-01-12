@@ -87,7 +87,7 @@
 						<input name="main-content" value="subject-registration" type="hidden" />
 						
 						<input name="next-action" value="subject-delete" type="hidden" />
-						<button name="id" value="${subject.id}" type="submit" class="">Delete</button>
+						<button name="id" value="${subject.id}" type="submit" class="" title="Related class will be deleted too!!!">Delete</button>
 					</form>
 
 				</td>
