@@ -76,7 +76,7 @@ public class START_LearnersAcademy extends HttpServlet {
 		studentDAO.saveStudent(student10);
 
 		// Use those names for other instances later on
-		
+
 		// Catherine Moore
 		// David Hill
 		// Hannah Thompson
@@ -93,7 +93,7 @@ public class START_LearnersAcademy extends HttpServlet {
 		teacherDAO.saveTeacher(teacher3);
 		teacherDAO.saveTeacher(teacher4);
 		teacherDAO.saveTeacher(teacher5);
-		
+
 		// Subject starter
 		Subject subject1 = new Subject("English", "ENG");
 		Subject subject2 = new Subject("Mathematics", "MATH");
@@ -102,7 +102,7 @@ public class START_LearnersAcademy extends HttpServlet {
 		Subject subject5 = new Subject("History", "HIS");
 		Subject subject6 = new Subject("Art", "ART");
 		Subject subject7 = new Subject("Geography", "GEO");
-		
+
 		subjectDAO.saveSubject(subject1);
 		subjectDAO.saveSubject(subject2);
 		subjectDAO.saveSubject(subject3);
@@ -110,15 +110,8 @@ public class START_LearnersAcademy extends HttpServlet {
 		subjectDAO.saveSubject(subject5);
 		subjectDAO.saveSubject(subject6);
 		subjectDAO.saveSubject(subject7);
-		
-		
-		//String datePattern = "dd-MM-yyyy";
-		//SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
-		//Date date = simpleDateFormat.parse("25-05-2023");
-			
-		
-		
-		
+
+		// Class starter
 		ClassX classX1 = new ClassX();
 		classX1.setSubjectId(subject1.getId());
 		classX1.setTeacherId(teacher1.getId());
@@ -132,9 +125,7 @@ public class START_LearnersAcademy extends HttpServlet {
 		student2.setClassX(classX1.getSubject().getSubjectName());
 		studentDAO.updateStudent(student1);
 		studentDAO.updateStudent(student2);
-		
-		
-		
+
 		ClassX classX2 = new ClassX();
 		classX2.setSubjectId(subject2.getId());
 		classX2.setTeacherId(teacher2.getId());
@@ -149,7 +140,6 @@ public class START_LearnersAcademy extends HttpServlet {
 		studentDAO.updateStudent(student3);
 		studentDAO.updateStudent(student4);
 
-		
 		ClassX classX3 = new ClassX();
 		classX3.setSubjectId(subject3.getId());
 		classX3.setTeacherId(teacher3.getId());
@@ -195,7 +185,8 @@ public class START_LearnersAcademy extends HttpServlet {
 
 				shouldSaveAdmin = false;
 
-				request.setAttribute("errorMessage", "The username you entered: > " + username + " < is already taken, please try again!");
+				request.setAttribute("errorMessage",
+						"The username you entered: > " + username + " < is already taken, please try again!");
 
 				RequestDispatcher dispatcher = request.getRequestDispatcher("admin-registration-initial.jsp");
 				// The code below will case an error but that is OK

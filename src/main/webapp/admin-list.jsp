@@ -11,15 +11,15 @@
 
 </head>
 <body>
-		<%
-			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-			String loggedUser = (String)session.getAttribute("username");
-			
-			if(loggedUser == null){
-				response.sendRedirect("login.jsp");
-			}		
-		%>
-		<h1>Admin List</h1>
+	<%
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		String loggedUser = (String)session.getAttribute("username");
+		
+		if(loggedUser == null){
+			response.sendRedirect("login.jsp");
+		}		
+	%>
+	<h1>Admin List</h1>
 
 	<hr>
 	<br>
@@ -34,29 +34,29 @@
 
 		<tr>
 		
-		<td colspan="6">
-			<table style="width: 100%; border: 0px;">
-				<tr>
-					<td align="center" style="border: 0px">
-						<form action="<%=request.getContextPath()%>/portal" method="post">
-						
-							<input name="side-menu" value="admin" type="hidden" />
-							<input name="main-content" value="admin-registration" type="hidden" />
-						
-							<button name="next-action" value="admin-registration" type="submit">Add New Admin</button>
-						</form>
-					</td>
-					<td align="center" style="border: 0px">
-						<form action="<%=request.getContextPath()%>/portal" method="post">
-							<input name="side-menu" value="admin" type="hidden" />
-							<input name="main-content" value="admin-list" type="hidden" />
+			<td colspan="6">
+				<table style="width: 100%; border: 0px;">
+					<tr>
+						<td align="center" style="border: 0px">
+							<form action="<%=request.getContextPath()%>/portal" method="post">
 							
-							<button name="next-action" value="admin-list" type="submit">List All Admins</button>
-						</form>
-					</td>
-				</tr>
-			</table>
-		</td>			
+								<input name="side-menu" value="admin" type="hidden" />
+								<input name="main-content" value="admin-registration" type="hidden" />
+							
+								<button name="next-action" value="admin-registration" type="submit">Add New Admin</button>
+							</form>
+						</td>
+						<td align="center" style="border: 0px">
+							<form action="<%=request.getContextPath()%>/portal" method="post">
+								<input name="side-menu" value="admin" type="hidden" />
+								<input name="main-content" value="admin-list" type="hidden" />
+								
+								<button name="next-action" value="admin-list" type="submit">List All Admins</button>
+							</form>
+						</td>
+					</tr>
+				</table>
+			</td>			
 		</tr>
 		<tr>
 			

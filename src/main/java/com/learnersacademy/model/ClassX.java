@@ -22,12 +22,13 @@ public class ClassX implements Serializable {
 
 	@Column(name = "subject_id")
 	private int subjectId;
-	
+
 	@Column(name = "teacher_id")
 	private int teacherId;
 
 	@Column(name = "date")
 	private String date;
+	
 	// Getters and setters
 
 	public int getId() {
@@ -41,7 +42,7 @@ public class ClassX implements Serializable {
 	public int getSubjectId() {
 		return subjectId;
 	}
-	
+
 	public Subject getSubject() {
 		SubjectDAO subjectDAO = new SubjectDAO();
 		Subject subject = subjectDAO.getSubject(subjectId);
@@ -55,7 +56,7 @@ public class ClassX implements Serializable {
 	public int getTeacherId() {
 		return teacherId;
 	}
-	
+
 	public Teacher getTeacher() {
 		TeacherDAO teacherDAO = new TeacherDAO();
 		Teacher teacher = teacherDAO.getTeacher(teacherId);
@@ -73,21 +74,22 @@ public class ClassX implements Serializable {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	
 	// Constructors
 
 	public ClassX() {
 		super();
-		
+
 	}
 
 	public ClassX(int subjectId, int teacherId, String date) {
 		super();
-		
+
 		this.subjectId = subjectId;
 		this.teacherId = teacherId;
 		this.date = date;
 	}
-	
+
 	public ClassX(int id, int subjectId, int teacherId, String date) {
 		super();
 		this.id = id;
@@ -95,7 +97,5 @@ public class ClassX implements Serializable {
 		this.teacherId = teacherId;
 		this.date = date;
 	}
-
-	
 
 }

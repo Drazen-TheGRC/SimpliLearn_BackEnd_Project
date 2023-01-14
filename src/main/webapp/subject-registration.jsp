@@ -11,14 +11,14 @@
 
 </head>
 <body>
-		<%
-			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-			String loggedUser = (String)session.getAttribute("username");
-			
-			if(loggedUser == null){
-				response.sendRedirect("login.jsp");
-			}		
-		%>
+	<%
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		String loggedUser = (String)session.getAttribute("username");
+		
+		if(loggedUser == null){
+			response.sendRedirect("login.jsp");
+		}		
+	%>
 	<h1>Please Register a Subject</h1>
 
 	<hr>
@@ -55,7 +55,6 @@
 				</td>
 			</tr>
 		</table>
-
 	</form>
 </body>
 </html>

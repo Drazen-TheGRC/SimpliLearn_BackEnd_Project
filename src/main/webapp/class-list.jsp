@@ -11,18 +11,17 @@
 
 </head>
 <body>
-		<%
-			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-			String loggedUser = (String)session.getAttribute("username");
-			
-			if(loggedUser == null){
-				response.sendRedirect("login.jsp");
-			}
-			
-			
-			String emptySpace = " ";
-		%>
-		<h1>Class List</h1>
+	<%
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		String loggedUser = (String)session.getAttribute("username");
+		
+		if(loggedUser == null){
+			response.sendRedirect("login.jsp");
+		}
+		
+		String emptySpace = " ";
+	%>
+	<h1>Class List</h1>
 
 	<hr>
 	<br>
@@ -69,16 +68,14 @@
 			<th>Student List</th>
 			<th>Edit</th>
 			<th>Delete</th>
+			
 		</tr>
 		<c:forEach var="classX" items="${listOfClassX}">
 			<tr>
-				
 				<td><c:out value="${classX.getSubject().getSubjectName()}" /></td>
 				<td><c:out value="${classX.getTeacher().getFirstName()}" /> <c:out value="${classX.getTeacher().getLastName()}" /></td>
 				
 				<td align="center"><c:out value="${classX.date}" /></td>
-				<!-- Need a button which will open a new page with dynamically generated header per class subject and a list of students who have classX property with that class name
-				on that new page we need to be able to add more students and re-list the list or to delete students  -->
 				<td>
 					<form action="<%=request.getContextPath()%>/portal"	method="post">
 						<input name="side-menu" value="class" type="hidden" />
@@ -88,7 +85,6 @@
 						<button name="id" value="${classX.id}" type="submit" class="">Student List</button>
 					</form>
 				</td>
-
 
 				<td>
 					<form action="<%=request.getContextPath()%>/portal"	method="post">
@@ -108,7 +104,6 @@
 						<input name="next-action" value="class-delete" type="hidden" />
 						<button name="id" value="${classX.id}" type="submit" class="">Delete</button>
 					</form>
-
 				</td>
 			</tr>
 		</c:forEach>

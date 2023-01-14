@@ -11,15 +11,15 @@
 
 </head>
 <body>
-		<%
-			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-			String loggedUser = (String)session.getAttribute("username");
-			
-			if(loggedUser == null){
-				response.sendRedirect("login.jsp");
-			}		
-		%>
-		<h1>${subject.subjectName} Class Details:</h1>
+	<%
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		String loggedUser = (String)session.getAttribute("username");
+		
+		if(loggedUser == null){
+			response.sendRedirect("login.jsp");
+		}		
+	%>
+	<h1>${subject.subjectName} Class Details:</h1>
 
 	<hr>
 	<br>
@@ -45,8 +45,8 @@
 			<th>First Name</th>
 			<th>Last Name</th>
 			<th>Age</th>
-			
 			<th>Remove from Class</th>
+			
 		</tr>
 		<c:forEach var="student" items="${listOfAllStudentOnClass}">
 			<tr>
@@ -63,7 +63,7 @@
 						
 						<input id="classXId" name="classXId" value="${classX.id}" type="hidden" />
 						
-						<input name="next-action" value="student-class-delete" type="hidden" />
+						<input name="next-action" value="student-class-remove" type="hidden" />
 						<button name="id" value="${student.id}" type="submit" class="">Remove from Class</button>
 					</form>
 
@@ -75,8 +75,8 @@
 			<td colspan="6">
 				<table style="width: 100%; border: 0px;">
 					
-						<tr>
-							<td align="center" style="border: 0px">
+					<tr>
+						<td align="center" style="border: 0px">
 							<form action="<%=request.getContextPath()%>/portal" method="post">
 								<select id="studentId" name="studentId" required>
 								    <c:forEach var="student" items="${listOfFREEStudent}">
@@ -88,11 +88,10 @@
 									
 								<input id="classXId" name="classXId" value="${classX.id}" type="hidden" />
 								
-								<!-- <input name="subjectId" value="${subject.id}" type="hidden" />-->
 								<button name="next-action" value="student-class-add" type="submit">Add Student to Class</button>
 							</form>	
-							</td>
-						</tr>
+						</td>
+					</tr>
 				</table>
 			</td>
 		</tr>

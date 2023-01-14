@@ -12,14 +12,14 @@
 
 </head>
 <body>
-		<%
-			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-			String loggedUser = (String)session.getAttribute("username");
-			
-			if(loggedUser == null){
-				response.sendRedirect("login.jsp");
-			}		
-		%>
+	<%
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		String loggedUser = (String)session.getAttribute("username");
+		
+		if(loggedUser == null){
+			response.sendRedirect("login.jsp");
+		}		
+	%>
 	<h1>Please Register a Class</h1>
 
 	<hr>
@@ -41,7 +41,7 @@
 				</td>
 				<td>
 					<select id="subjectId" name="subjectId" required>
-						<option value="${subjectSelected.id}" selected>${subjectSelected.subjectName}</option>
+							<option value="${subjectSelected.id}" selected>${subjectSelected.subjectName}</option>
 					    <c:forEach var="subject" items="${listOfFREESubject}">
 					        <option value="${subject.id}">${subject.subjectName}</option>
 					    </c:forEach>
@@ -49,14 +49,13 @@
 				</td>
 			</tr>
 			
-			
 			<tr>
 				<td align="right">
 					<label for="teacherId">Teacher:</label>
 				</td>
 				<td>
 					<select id="teacherId" name="teacherId" required>
-						<option value="${teacherSelected.id}" selected>${teacherSelected.firstName} ${teacherSelected.lastName}</option>
+							<option value="${teacherSelected.id}" selected>${teacherSelected.firstName} ${teacherSelected.lastName}</option>
 					    <c:forEach var="teacher" items="${listOfFREETeacher}">
 					        <option value="${teacher.id}">${teacher.firstName} ${teacher.lastName}</option>
 					    </c:forEach>

@@ -11,14 +11,14 @@
 
 </head>
 <body>
-		<%
-			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-			String loggedUser = (String)session.getAttribute("username");
-			
-			if(loggedUser == null){
-				response.sendRedirect("login.jsp");
-			}		
-		%>
+	<%
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		String loggedUser = (String)session.getAttribute("username");
+		
+		if(loggedUser == null){
+			response.sendRedirect("login.jsp");
+		}		
+	%>
 	<h1>Please Edit a Subject</h1>
 
 	<hr>
@@ -51,13 +51,11 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-				
 					<input name="id" id="id" value="${id}" type="hidden" />
 					<button name="next-action" value="subject-edit" type="submit" >Confirm Edits</button>
 				</td>
 			</tr>
 		</table>
-
 	</form>
 </body>
 </html>

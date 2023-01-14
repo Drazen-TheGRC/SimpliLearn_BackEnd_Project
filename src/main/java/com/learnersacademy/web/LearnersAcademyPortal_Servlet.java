@@ -69,9 +69,10 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		case "logout":
 			logout(request, response);
 			break;
-
+		//
 		// Admin options
-
+		//
+			
 		// Opens Admin registration form in the Portal
 		case "admin-registration":
 			adminRegistration(request, response);
@@ -96,9 +97,10 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		case "admin-delete":
 			adminDelete(request, response);
 			break;
-
+		//	
 		// Student options
-
+		//
+			
 		// Opens Student registration form in the Portal
 		case "student-registration":
 			studentRegistration(request, response);
@@ -119,13 +121,15 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		case "student-edit":
 			studentEdit(request, response);
 			break;
-		// Deletes particular Admin from the database
+		// Deletes particular Student from the database
 		case "student-delete":
 			studentDelete(request, response);
 			break;
-
+			
+		//	
 		// Teacher options
-
+		//
+			
 		// Opens Teacher registration form in the Portal
 		case "teacher-registration":
 			teacherRegistration(request, response);
@@ -151,8 +155,10 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			teacherDelete(request, response);
 			break;
 
+		//
 		// Subject options
-
+		//
+			
 		// Opens Subject registration form in the Portal
 		case "subject-registration":
 			subjectRegistration(request, response);
@@ -177,90 +183,73 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		case "subject-delete":
 			subjectDelete(request, response);
 			break;
-			
-			
-			
-			
-			
-			// class options
 
-			// Opens Class registration form in the Portal
-			case "class-registration":
-				classXRegistration(request, response);
-				break;
-			// Adds Class to the database or asks user to try again if error
-			case "class-add":
+		//	
+		// class options
+		//
+			
+		// Opens Class registration form in the Portal
+		case "class-registration":
+			classXRegistration(request, response);
+			break;
+		// Adds Class to the database
+		case "class-add":
 			try {
 				classXAdd(request, response);
 			} catch (IOException | ServletException | ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-				break;
-			// Lists all Class from the database
-			case "class-list":
-				classXList(request, response);
-				break;
-				
-				
-			case "class-student-list":
-				classXStudentList(request, response);
-				break;
-				
-				
-			// Opens Class edit form in the Portal
-			case "class-edit-form":
+			break;
+			
+		// Lists all Class from the database
+		case "class-list":
+			classXList(request, response);
+			break;
+		//List students on a particular class	
+		case "class-student-list":
+			classXStudentList(request, response);
+			break;
+
+		// Opens Class edit form in the Portal
+		case "class-edit-form":
 			try {
 				classXEditForm(request, response);
 			} catch (IOException | ServletException | ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-				break;
-			// Edits particular Class or asks user to try again if error
-			case "class-edit":
+			break;
+			
+		// Edits particular Class
+		case "class-edit":
 			try {
 				classXEdit(request, response);
 			} catch (IOException | ServletException | ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-				break;
-			// Deletes particular Class from the database
-			case "class-delete":
-				classXDelete(request, response);
-				break;
-				
-			case "student-class-delete":
-				studentClassXRemove(request, response);
-				break;
+			break;
 			
-			case "student-class-add":
-				studentClassXAdd(request, response);
-				break;
-			
-			
-			case "student-class-after-add":
-				classXStudentListAfterAdd(request, response);
-				break;
-			
-			
-				
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+		// Delete particular Class from the database
+		case "class-delete":
+			classXDelete(request, response);
+			break;
+
+		// Remove a student from a particular class
+		case "student-class-remove":
+			studentClassXRemove(request, response);
+			break;
+
+		// Add a student to a class	
+		case "student-class-add":
+			studentClassXAdd(request, response);
+			break;
+		
+		// Had some plans to make it show the student list for a particular class after student removal or student addition to a class, had no time to finish this on time so...	
+		case "student-class-after-add":
+			classXStudentListAfterAdd(request, response);
+			break;
 
 		default:
 			logout(request, response);
@@ -452,7 +441,8 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 					shouldEditAdmin = false;
 
-					request.setAttribute("errorMessage", "The username you entered: > " + username + " < is already taken, please try again!");
+					request.setAttribute("errorMessage",
+							"The username you entered: > " + username + " < is already taken, please try again!");
 
 					adminEditForm(request, response);
 				}
@@ -516,7 +506,8 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 				shouldSaveTeacher = false;
 
-				request.setAttribute("errorMessage", "The accreditation ID you entered: > " + accreditationId + " < is already taken, please try again!");
+				request.setAttribute("errorMessage", "The accreditation ID you entered: > " + accreditationId
+						+ " < is already taken, please try again!");
 
 				request.setAttribute("side-menu", "teacher");
 				request.setAttribute("main-content", "teacher-registration");
@@ -604,7 +595,8 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 					shouldEditTeacher = false;
 
-					request.setAttribute("errorMessage", "The accreditation ID you entered: > " + accreditationId + " < is already taken, please try again!");
+					request.setAttribute("errorMessage", "The accreditation ID you entered: > " + accreditationId
+							+ " < is already taken, please try again!");
 
 					teacherEditForm(request, response);
 				}
@@ -670,7 +662,8 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 				shouldSaveStudent = false;
 
-				request.setAttribute("errorMessage", "The student ID you entered: > " + studentId + " < is already taken, please try again!");
+				request.setAttribute("errorMessage",
+						"The student ID you entered: > " + studentId + " < is already taken, please try again!");
 
 				request.setAttribute("side-menu", "student");
 				request.setAttribute("main-content", "student-registration");
@@ -758,7 +751,8 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 					shouldEditStudent = false;
 
-					request.setAttribute("errorMessage", "The student ID you entered: > " + studentId + " < is already taken, please try again!");
+					request.setAttribute("errorMessage",
+							"The student ID you entered: > " + studentId + " < is already taken, please try again!");
 
 					studentEditForm(request, response);
 				}
@@ -767,7 +761,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 		// Preventing duplicates
 		if (shouldEditStudent) {
-			
+
 			Student student = studentDAO.getStudent(Integer.parseInt(request.getParameter("id")));
 			student.setStudentId(request.getParameter("studentId"));
 			student.setFirstName(request.getParameter("firstName"));
@@ -791,7 +785,7 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 	}
 
 	// Subject methods
-	
+
 	private void subjectRegistration(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -820,12 +814,15 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 		for (Subject subject : listOfSubject) {
 			String tempSubjectName = subject.getSubjectName();
 			String tempSubjectShortcut = subject.getSubjectShortcut();
-			
-			if (tempSubjectName.equalsIgnoreCase(subjectName) && tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
+
+			if (tempSubjectName.equalsIgnoreCase(subjectName)
+					&& tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
 
 				shouldSaveSubject = false;
 
-				request.setAttribute("errorMessage", "The subject name you entered: > " + subjectName + " < and the subject shortcut you entered: > " + subjectShortcut + " < are both already taken, please try again!");
+				request.setAttribute("errorMessage",
+						"The subject name you entered: > " + subjectName + " < and the subject shortcut you entered: > "
+								+ subjectShortcut + " < are both already taken, please try again!");
 
 				request.setAttribute("side-menu", "subject");
 				request.setAttribute("main-content", "subject-registration");
@@ -839,7 +836,8 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 				shouldSaveSubject = false;
 
-				request.setAttribute("errorMessage", "The subject name you entered: > " + subjectName + " < is already taken, please try again!");
+				request.setAttribute("errorMessage",
+						"The subject name you entered: > " + subjectName + " < is already taken, please try again!");
 
 				request.setAttribute("side-menu", "subject");
 				request.setAttribute("main-content", "subject-registration");
@@ -848,12 +846,13 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
 				dispatcher.forward(request, response);
 			}
-			
+
 			if (tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
 
 				shouldSaveSubject = false;
 
-				request.setAttribute("errorMessage", "The subject shortcut you entered: > " + subjectShortcut + " < is already taken, please try again!");
+				request.setAttribute("errorMessage", "The subject shortcut you entered: > " + subjectShortcut
+						+ " < is already taken, please try again!");
 
 				request.setAttribute("side-menu", "subject");
 				request.setAttribute("main-content", "subject-registration");
@@ -933,23 +932,28 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 			String tempSubjectName = subject.getSubjectName();
 			String tempSubjectShortcut = subject.getSubjectShortcut();
 
-			if (tempSubjectName.equalsIgnoreCase(subjectName) && tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
+			if (tempSubjectName.equalsIgnoreCase(subjectName)
+					&& tempSubjectShortcut.equalsIgnoreCase(subjectShortcut)) {
 
-				if (!subjectName.equalsIgnoreCase(subjectDAO.getSubject(id).getSubjectName()) && !tempSubjectShortcut.equalsIgnoreCase(subjectDAO.getSubject(id).getSubjectShortcut())) {
-					// If the subjectName and subjectShortcut exist in the database but it doesen't belong to the
+				if (!subjectName.equalsIgnoreCase(subjectDAO.getSubject(id).getSubjectName())
+						&& !tempSubjectShortcut.equalsIgnoreCase(subjectDAO.getSubject(id).getSubjectShortcut())) {
+					// If the subjectName and subjectShortcut exist in the database but it doesen't
+					// belong to the
 					// object
 					// we are editing
 
 					shouldEditSubject = false;
 
-					request.setAttribute("errorMessage", "The subject name you entered: > " + subjectName + " < and the subject shortcut you entered: > " + subjectShortcut + " < are both already taken, please try again!");
+					request.setAttribute("errorMessage",
+							"The subject name you entered: > " + subjectName
+									+ " < and the subject shortcut you entered: > " + subjectShortcut
+									+ " < are both already taken, please try again!");
 
 					subjectEditForm(request, response);
 				}
 
 			}
-			
-			
+
 			if (tempSubjectName.equalsIgnoreCase(subjectName)) {
 				// If the subjectName exists in the database it checks is if it belongs to the
 				// object we are editing
@@ -960,7 +964,8 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 					shouldEditSubject = false;
 
-					request.setAttribute("errorMessage", "The subject name you entered: > " + subjectName + " < is already taken, please try again!");
+					request.setAttribute("errorMessage", "The subject name you entered: > " + subjectName
+							+ " < is already taken, please try again!");
 
 					subjectEditForm(request, response);
 				}
@@ -977,7 +982,8 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 					shouldEditSubject = false;
 
-					request.setAttribute("errorMessage", "The subject shortcut you entered: > " + subjectShortcut + " < is already taken, please try again!");
+					request.setAttribute("errorMessage", "The subject shortcut you entered: > " + subjectShortcut
+							+ " < is already taken, please try again!");
 
 					subjectEditForm(request, response);
 				}
@@ -986,10 +992,9 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 
 		// Preventing duplicates
 		if (shouldEditSubject) {
-			
-			
+
 			Subject subject = subjectDAO.getSubject(Integer.parseInt(request.getParameter("id")));
-			
+
 			subject.setSubjectName(request.getParameter("subjectName"));
 			subject.setSubjectShortcut(request.getParameter("subjectShortcut"));
 
@@ -1002,547 +1007,471 @@ public class LearnersAcademyPortal_Servlet extends HttpServlet {
 	private void subjectDelete(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		// Deleting by id
-		
+
 		List<ClassX> listOfClassX = classDAO.getAllClassX();
-		
+
 		for (ClassX classX : listOfClassX) {
-			if (classX.getSubject().getSubjectName().equalsIgnoreCase(subjectDAO.getSubject(Integer.parseInt(request.getParameter("id"))).getSubjectName())) {
+			if (classX.getSubject().getSubjectName().equalsIgnoreCase(
+					subjectDAO.getSubject(Integer.parseInt(request.getParameter("id"))).getSubjectName())) {
 				classDAO.deleteClassX(classX.getId());
 			}
 		}
-		
-		
-		
+
 		int id = Integer.parseInt(request.getParameter("id"));
 		subjectDAO.deleteSubject(id);
 
 		// Listing again
 		subjectList(request, response);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	// ClassX methods
 
-		private void classXRegistration(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			
-			List<Subject> listOfAllSubject = subjectDAO.getAllSubject();
-			List<Subject> listOfFREESubject = new ArrayList<>();;
-			for (Subject subject : listOfAllSubject) {
-				if (subject.getClassX()==null) {
-					listOfFREESubject.add(subject);
-				}
-			}
-			if (listOfFREESubject.isEmpty()) {
-				subjectRegistration(request, response);
-			}
-			request.setAttribute("listOfFREESubject", listOfFREESubject);
+	private void classXRegistration(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-			List<Teacher> listOfAllTeacher = teacherDAO.getAllTeacher();
-			List<Teacher> listOfFREETeacher = new ArrayList<>();;
-			for (Teacher teacher : listOfAllTeacher) {
-				if (teacher.getClassX()==null) {
-					listOfFREETeacher.add(teacher);
-				}
+		List<Subject> listOfAllSubject = subjectDAO.getAllSubject();
+		List<Subject> listOfFREESubject = new ArrayList<>();
+		;
+		for (Subject subject : listOfAllSubject) {
+			if (subject.getClassX() == null) {
+				listOfFREESubject.add(subject);
 			}
-			if (listOfFREETeacher.isEmpty()) {
-				teacherRegistration(request, response);
+		}
+		if (listOfFREESubject.isEmpty()) {
+			subjectRegistration(request, response);
+		}
+		request.setAttribute("listOfFREESubject", listOfFREESubject);
+
+		List<Teacher> listOfAllTeacher = teacherDAO.getAllTeacher();
+		List<Teacher> listOfFREETeacher = new ArrayList<>();
+		;
+		for (Teacher teacher : listOfAllTeacher) {
+			if (teacher.getClassX() == null) {
+				listOfFREETeacher.add(teacher);
 			}
-			request.setAttribute("listOfFREETeacher", listOfFREETeacher);
+		}
+		if (listOfFREETeacher.isEmpty()) {
+			teacherRegistration(request, response);
+		}
+		request.setAttribute("listOfFREETeacher", listOfFREETeacher);
 
-			request.setAttribute("errorMessage", null);
+		request.setAttribute("errorMessage", null);
 
-			request.setAttribute("side-menu", "class");
-			request.setAttribute("main-content", "class-registration");
-			request.setAttribute("next-action", null);
+		request.setAttribute("side-menu", "class");
+		request.setAttribute("main-content", "class-registration");
+		request.setAttribute("next-action", null);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
-			dispatcher.forward(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void classXAdd(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException, ParseException {
+
+		ClassX classX = new ClassX();
+
+		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
+		Subject subject = subjectDAO.getSubject(subjectId);
+		classX.setSubjectId(subject.getId());
+
+		int teacherId = Integer.parseInt(request.getParameter("teacherId"));
+		Teacher teacher = teacherDAO.getTeacher(teacherId);
+		classX.setTeacherId(teacher.getId());
+
+		String date = request.getParameter("date");
+		Date dateFromJSP = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+		String dateFormated = dateFormat.format(dateFromJSP);
+		classX.setDate(dateFormated);
+
+		subject.setClassX(classX.getSubject().getSubjectName());
+		subjectDAO.updateSubject(subject);
+
+		teacher.setClassX(classX.getSubject().getSubjectName());
+		teacherDAO.updateTeacher(teacher);
+
+		// Saving Class
+		classDAO.saveClassX(classX);
+
+		request.setAttribute("errorMessage", null);
+
+		classXList(request, response);
+
+	}
+
+	private void classXList(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		List<ClassX> listOfClassX = classDAO.getAllClassX();
+
+		request.setAttribute("listOfClassX", listOfClassX);
+
+		request.setAttribute("errorMessage", null);
+
+		request.setAttribute("side-menu", "class");
+		request.setAttribute("main-content", "class-list");
+		request.setAttribute("next-action", null);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void classXEditForm(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException, ParseException {
+
+		int id = Integer.parseInt(request.getParameter("id"));
+		ClassX classX = classDAO.getClassX(id);
+
+		request.setAttribute("id", classX.getId());
+
+		request.setAttribute("subjectSelected", classX.getSubject());
+		List<Subject> listOfAllSubject = subjectDAO.getAllSubject();
+		List<Subject> listOfFREESubject = new ArrayList<>();
+		;
+		for (Subject subject : listOfAllSubject) {
+			if (subject.getClassX() == null) {
+				listOfFREESubject.add(subject);
+			}
+		}
+		if (listOfFREESubject.isEmpty()) {
+			subjectRegistration(request, response);
+		}
+		request.setAttribute("listOfFREESubject", listOfFREESubject);
+
+		request.setAttribute("teacherSelected", classX.getTeacher());
+		List<Teacher> listOfAllTeacher = teacherDAO.getAllTeacher();
+		List<Teacher> listOfFREETeacher = new ArrayList<>();
+		;
+		for (Teacher teacher : listOfAllTeacher) {
+			if (teacher.getClassX() == null) {
+				listOfFREETeacher.add(teacher);
+			}
+		}
+		if (listOfFREETeacher.isEmpty()) {
+			teacherRegistration(request, response);
+		}
+		request.setAttribute("listOfFREETeacher", listOfFREETeacher);
+
+		String date = classX.getDate();
+		Date dateFromDB = new SimpleDateFormat("dd-MMM-yyyy").parse(date);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String dateFormated = dateFormat.format(dateFromDB);
+
+		request.setAttribute("date", dateFormated);
+
+		// request.setAttribute("errorMessage", request.getAttribute("errorMessage"));
+
+		request.setAttribute("side-menu", "class");
+		request.setAttribute("main-content", "class-edit-form");
+		request.setAttribute("next-action", null);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void classXEdit(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException, ParseException {
+
+		// if no changes all ok for each subject, teacher, and students
+		// if there are changes in that case we need to clean all of them and assign new
+		// values
+		// We need to update classX
+
+		ClassX classX = new ClassX();
+		classX = classDAO.getClassX(Integer.parseInt(request.getParameter("id")));
+
+		// If Teacher change
+
+		if (classX.getTeacherId() != Integer.parseInt(request.getParameter("teacherId"))) {
+
+			Teacher oldTeacher = classX.getTeacher();
+
+			if (oldTeacher != null) {
+				oldTeacher.setClassX(null);
+				teacherDAO.updateTeacher(oldTeacher);
+			}
+
+			Teacher newTeacher = teacherDAO.getTeacher(Integer.parseInt(request.getParameter("teacherId")));
+			newTeacher.setClassX(
+					subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId"))).getSubjectName());
+			teacherDAO.updateTeacher(newTeacher);
+
+			classX.setTeacherId(Integer.parseInt(request.getParameter("teacherId")));
 		}
 
-		
-		private void classXAdd(HttpServletRequest request, HttpServletResponse response)
-				throws IOException, ServletException, ParseException {
+		// if subject changed need to update the subject, need to update teacher, need
+		// to update students
+		if (!classX.getSubject().getSubjectName().equalsIgnoreCase(
+				subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId"))).getSubjectName())) {
 
-			ClassX classX = new ClassX();
-			
-			int subjectId = Integer.parseInt(request.getParameter("subjectId"));
-			Subject subject = subjectDAO.getSubject(subjectId);
-			classX.setSubjectId(subject.getId());
-			
-			int teacherId = Integer.parseInt(request.getParameter("teacherId"));
-			Teacher teacher = teacherDAO.getTeacher(teacherId);
-			classX.setTeacherId(teacher.getId());
+			// Updating all students
+			List<Student> listOfAllStudent = studentDAO.getAllStudent();
+			for (Student student : listOfAllStudent) {
+				if (student.getClassX() != null
+						&& student.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
 
-			
-			String date = request.getParameter("date");
-			Date dateFromJSP = new SimpleDateFormat("yyyy-MM-dd").parse(date);  
-			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-			String dateFormated = dateFormat.format(dateFromJSP);
-			classX.setDate(dateFormated);
-			
-			
-			subject.setClassX(classX.getSubject().getSubjectName());
+					student.setClassX(subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId")))
+							.getSubjectName());
+					studentDAO.updateStudent(student);
+				}
+			}
+
+			// Updating teacher
+			List<Teacher> listOfAllTeacher = teacherDAO.getAllTeacher();
+			for (Teacher teacher : listOfAllTeacher) {
+				if (teacher.getClassX() != null
+						&& teacher.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
+
+					teacher.setClassX(subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId")))
+							.getSubjectName());
+					teacherDAO.updateTeacher(teacher);
+				}
+			}
+
+			// Updating subject
+			List<Subject> listOfAllSubject = subjectDAO.getAllSubject();
+			for (Subject subject : listOfAllSubject) {
+				if (subject.getClassX() != null
+						&& subject.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
+
+					subject.setClassX(null);
+					subjectDAO.updateSubject(subject);
+				}
+			}
+			// end of updates regarding subject change except updating classX that needs to
+			// be updated at the end of the method
+
+			Subject subject = subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId")));
+			subject.setClassX(
+					subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId"))).getSubjectName());
 			subjectDAO.updateSubject(subject);
-			
-
-			teacher.setClassX(classX.getSubject().getSubjectName());
-			teacherDAO.updateTeacher(teacher);
-			
-			// Saving Class
-			classDAO.saveClassX(classX);
-			
-			request.setAttribute("errorMessage", null);
-
-			classXList(request, response);
-
+			classX.setSubjectId(Integer.parseInt(request.getParameter("subjectId")));
 		}
 
-		private void classXList(HttpServletRequest request, HttpServletResponse response)
-				throws IOException, ServletException {
+		// Setting date
+		String date = request.getParameter("date");
+		Date dateFromJSP = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+		String dateFormated = dateFormat.format(dateFromJSP);
+		classX.setDate(dateFormated);
 
-			List<ClassX> listOfClassX = classDAO.getAllClassX();
+		// Update Class
+		classDAO.updateClassX(classX);
 
-			request.setAttribute("listOfClassX", listOfClassX);
+		request.setAttribute("errorMessage", null);
 
-			request.setAttribute("errorMessage", null);
+		classXList(request, response);
+	}
 
-			request.setAttribute("side-menu", "class");
-			request.setAttribute("main-content", "class-list");
-			request.setAttribute("next-action", null);
+	private void classXDelete(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
-			dispatcher.forward(request, response);
-		}
+		// First remove all related info in all subject teacher and students Make
+		// methods clean subject class and students
+		// and call them below those should list all students and if classX is eaqual to
+		// class name than classX = null
 
-		private void classXEditForm(HttpServletRequest request, HttpServletResponse response)
-				throws IOException, ServletException, ParseException {
+		ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("id")));
 
-			int id = Integer.parseInt(request.getParameter("id"));
-			ClassX classX = classDAO.getClassX(id);
-
-			request.setAttribute("id", classX.getId());
-			
-			
-			
-			request.setAttribute("subjectSelected", classX.getSubject());
-			List<Subject> listOfAllSubject = subjectDAO.getAllSubject();
-			List<Subject> listOfFREESubject = new ArrayList<>();;
-			for (Subject subject : listOfAllSubject) {
-				if (subject.getClassX()==null) {
-					listOfFREESubject.add(subject);
+		// Cleaning Subject ClassX
+		List<Subject> listOfAllSubject = subjectDAO.getAllSubject();
+		for (Subject subject : listOfAllSubject) {
+			if (subject.getClassX() != null) {
+				if (subject.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
+					subject.setClassX(null);
+					subjectDAO.updateSubject(subject);
 				}
 			}
-			if (listOfFREESubject.isEmpty()) {
-				subjectRegistration(request, response);
-			}
-			request.setAttribute("listOfFREESubject", listOfFREESubject);
-			
-			
-			
-			request.setAttribute("teacherSelected", classX.getTeacher());
-			List<Teacher> listOfAllTeacher = teacherDAO.getAllTeacher();
-			List<Teacher> listOfFREETeacher = new ArrayList<>();;
-			for (Teacher teacher : listOfAllTeacher) {
-				if (teacher.getClassX()==null) {
-					listOfFREETeacher.add(teacher);
-				}
-			}
-			if (listOfFREETeacher.isEmpty()) {
-				teacherRegistration(request, response);
-			}
-			request.setAttribute("listOfFREETeacher", listOfFREETeacher);
-
-			String date = classX.getDate();
-			Date dateFromDB = new SimpleDateFormat("dd-MMM-yyyy").parse(date);  
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			String dateFormated = dateFormat.format(dateFromDB);
-			
-			request.setAttribute("date", dateFormated);
-
-			// request.setAttribute("errorMessage", request.getAttribute("errorMessage"));
-
-			request.setAttribute("side-menu", "class");
-			request.setAttribute("main-content", "class-edit-form");
-			request.setAttribute("next-action", null);
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
-			dispatcher.forward(request, response);
 		}
 
-		private void classXEdit(HttpServletRequest request, HttpServletResponse response)
-				throws IOException, ServletException, ParseException {
+		// Cleaning Student ClassX
+		List<Student> listOfAllStudent = studentDAO.getAllStudent();
+		for (Student student : listOfAllStudent) {
+			if (student.getClassX() != null) {
+				if (student.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
+					student.setClassX(null);
+					studentDAO.updateStudent(student);
+				}
+			}
+		}
 
-			// if no changes all ok for each subject, teacher, and students
-			// if there are changes in that case we need to clean all of them and assign new values
-			// We need to update classX
+		// Cleaning Teacher ClassX
+		List<Teacher> listOfAllTeacher = teacherDAO.getAllTeacher();
+		for (Teacher teacher : listOfAllTeacher) {
+			if (teacher.getClassX() != null) {
+				if (teacher.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
+					teacher.setClassX(null);
+					teacherDAO.updateTeacher(teacher);
+				}
+			}
+		}
 
-			ClassX classX = new ClassX();
+		// Deleting by id
+		int id = Integer.parseInt(request.getParameter("id"));
+		classDAO.deleteClassX(id);
+
+		// Listing again
+		classXList(request, response);
+	}
+
+	private void classXStudentList(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		// get ID of Class and use it to get students on that class
+		// Also get all free students
+
+		// All Students
+		List<Student> listOfAllStudent = studentDAO.getAllStudent();
+
+		// Students on class
+
+		ClassX classX = null;
+		HttpSession session = request.getSession();
+		if (request.getParameter("id") != null) {
+			session.setAttribute("id", request.getParameter("id"));
 			classX = classDAO.getClassX(Integer.parseInt(request.getParameter("id")));
-			
-			// If Teacher change
-			
-			
-			if (classX.getTeacherId() != Integer.parseInt(request.getParameter("teacherId"))) {
-			
-				Teacher oldTeacher = classX.getTeacher();
-				
-				
-				if (oldTeacher!=null) {
-					oldTeacher.setClassX(null);
-					teacherDAO.updateTeacher(oldTeacher);
-				}			
-				
-				
-				
-				
-				Teacher newTeacher = teacherDAO.getTeacher(Integer.parseInt(request.getParameter("teacherId")));
-				newTeacher.setClassX(subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId"))).getSubjectName());
-				teacherDAO.updateTeacher(newTeacher);
-				
-				classX.setTeacherId(Integer.parseInt(request.getParameter("teacherId")));
-			}
-			
-			
-			// if subject changed need to update the subject, need to update teacher, need to update students
-			if (!classX.getSubject().getSubjectName().equalsIgnoreCase(subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId"))).getSubjectName())) {
-				
-				// Updating all students
-				List<Student> listOfAllStudent = studentDAO.getAllStudent();
-				for (Student student : listOfAllStudent) {
-					if (student.getClassX()!=null && student.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
-						
-						student.setClassX(subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId"))).getSubjectName());
-						studentDAO.updateStudent(student);
-					}
-				}
-				
-				// Updating teacher
-				List<Teacher> listOfAllTeacher = teacherDAO.getAllTeacher();
-				for (Teacher teacher : listOfAllTeacher) {
-					if (teacher.getClassX()!=null && teacher.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
-						
-						teacher.setClassX(subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId"))).getSubjectName());
-						teacherDAO.updateTeacher(teacher);
-					}
-				}
-				
-				// Updating subject
-				List<Subject> listOfAllSubject = subjectDAO.getAllSubject();
-				for (Subject subject : listOfAllSubject) {
-					if (subject.getClassX()!=null && subject.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
-						
-						subject.setClassX(null);
-						subjectDAO.updateSubject(subject);
-					}
-				}
-				// end of updates regarding subject change except updating classX that needs to be updated at the end of the method
-				
-				
-				Subject subject = subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId")));
-				subject.setClassX(subjectDAO.getSubject(Integer.parseInt(request.getParameter("subjectId"))).getSubjectName());
-				subjectDAO.updateSubject(subject);
-				classX.setSubjectId(Integer.parseInt(request.getParameter("subjectId")));
-			}
-			
+		} else {
 
-			// Setting date
-			String date = request.getParameter("date");
-			Date dateFromJSP = new SimpleDateFormat("yyyy-MM-dd").parse(date);  
-			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-			String dateFormated = dateFormat.format(dateFromJSP);
-			classX.setDate(dateFormated);
+			classX = classDAO.getClassX(Integer.parseInt((String) session.getAttribute("id")));
 
-			
-			// Update Class
-			classDAO.updateClassX(classX);
-			
-			request.setAttribute("errorMessage", null);
-
-			classXList(request, response);
 		}
 
-		private void classXDelete(HttpServletRequest request, HttpServletResponse response)
-				throws IOException, ServletException {
-			
-			//First remove all related info in all subject teacher and students Make methods clean subject class and students 
-			//and call them below those should list all students and if classX is eaqual to class name than classX = null
-			
+		List<Student> listOfAllStudentOnClass = new ArrayList<>();
+		;
+		for (Student student : listOfAllStudent) {
 
-				
-				ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("id")));
-				
-				// Cleaning Subject ClassX
-				List<Subject> listOfAllSubject = subjectDAO.getAllSubject();
-				for (Subject subject : listOfAllSubject) {
-					if (subject.getClassX()!=null) {
-						if (subject.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
-							subject.setClassX(null);
-							subjectDAO.updateSubject(subject);
-						}
-					}
-				}
-				
-				
-				
-				// Cleaning Student ClassX
-				List<Student> listOfAllStudent = studentDAO.getAllStudent();
-				for (Student student : listOfAllStudent) {
-					if (student.getClassX()!=null) {
-						if (student.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
-							student.setClassX(null);
-							studentDAO.updateStudent(student);
-						}
-					}
-				}
-				
-				
-				// Cleaning Teacher ClassX
-				List<Teacher> listOfAllTeacher = teacherDAO.getAllTeacher();
-				for (Teacher teacher : listOfAllTeacher) {
-					if (teacher.getClassX()!=null) {
-						if (teacher.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
-							teacher.setClassX(null);
-							teacherDAO.updateTeacher(teacher);
-						}
-					}
-				}
-
-			
-			
-			// Deleting by id
-			int id = Integer.parseInt(request.getParameter("id"));
-			classDAO.deleteClassX(id);
-
-			// Listing again
-			classXList(request, response);
-		}
-
-
-	
-	
-		private void classXStudentList(HttpServletRequest request, HttpServletResponse response)
-				throws IOException, ServletException {
-
-			// get ID of Class and use it to get students on that class
-			// Also get all free students
-			
-			// All Students
-			List<Student> listOfAllStudent = studentDAO.getAllStudent();
-			
-			// Students on class
-			
-			
-			
-			
-			ClassX classX = null;
-			HttpSession session = request.getSession();
-			if (request.getParameter("id")!=null) {
-				session.setAttribute("id", request.getParameter("id"));
-				classX = classDAO.getClassX(Integer.parseInt(request.getParameter("id")));
-			}else {
-				
-				classX = classDAO.getClassX(Integer.parseInt((String) session.getAttribute("id")));
-				
-			}
-			
-			
-			
-			
-			
-			List<Student> listOfAllStudentOnClass = new ArrayList<>();;
-			for (Student student : listOfAllStudent) {
-				
-				if (student.getClassX()!=null) {
-					if (student.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
-						listOfAllStudentOnClass.add(student);
-					}
-				}	
-			}
-
-			// Free students
-			List<Student> listOfFREEStudent = new ArrayList<>();;
-			for (Student student : listOfAllStudent) {
-				if (student.getClassX()==null) {
-					listOfFREEStudent.add(student);
+			if (student.getClassX() != null) {
+				if (student.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
+					listOfAllStudentOnClass.add(student);
 				}
 			}
-			
-
-
-
-			request.setAttribute("classX", classX);
-			
-			request.setAttribute("listOfAllStudentOnClass", listOfAllStudentOnClass);
-			request.setAttribute("listOfFREEStudent", listOfFREEStudent);
-			
-			request.setAttribute("subject", classX.getSubject());
-			request.setAttribute("teacher", classX.getTeacher());
-			
-
-			request.setAttribute("errorMessage", null);
-
-			request.setAttribute("side-menu", "class");
-			request.setAttribute("main-content", "class-student-list");
-			request.setAttribute("next-action", null);
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
-			dispatcher.forward(request, response);
 		}
-		
-		
-		private void studentClassXRemove(HttpServletRequest request, HttpServletResponse response)
-				throws IOException, ServletException {
-			
-			//HttpSession session = request.getSession();
-			//ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("classXId")));
-			//session.setAttribute("id", classX.getId());
-			
-			ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("classXId")));
-			
-			Student student = studentDAO.getStudent(Integer.parseInt(request.getParameter("id")));
-			
-			student.setClassX(null);
-			studentDAO.updateStudent(student);
-			
-			//request.setAttribute("classX", classX);
-			//RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
-			//dispatcher.forward(request, response);
-			
-			classXList(request, response);
-			//classXStudentList(request, response);
-		}
-	
-		private void studentClassXAdd(HttpServletRequest request, HttpServletResponse response)
-				throws IOException, ServletException {
-			
-			//HttpSession session = request.getSession();
-			//ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("classXId")));
-			//session.setAttribute("id", classX.getId());
-			
-			ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("classXId")));
-			
-			Student student = studentDAO.getStudent(Integer.parseInt(request.getParameter("studentId")));
-			
-			student.setClassX(classX.getSubject().getSubjectName());
-			studentDAO.updateStudent(student);
-			
-			
-			//request.setAttribute("classX", classX);
 
-			//RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
-			//dispatcher.forward(request, response);
-			
-			classXList(request, response);
-			//classXStudentList(request, response);
-			
-		}
-		
-		
-		private void classXStudentListAfterAdd(HttpServletRequest request, HttpServletResponse response)
-				throws IOException, ServletException {
-			
-			// get ID of Class and use it to get students on that class
-			// Also get all free students
-			
-			// All Students
-			List<Student> listOfAllStudent = studentDAO.getAllStudent();
-
-			
-
-			// Students on class
-			ClassX classX = (ClassX) request.getAttribute("classX");
-			
-			
-			
-			
-			
-			
-			
-			List<Student> listOfAllStudentOnClass = new ArrayList<>();;
-			for (Student student : listOfAllStudent) {
-				
-				if (student.getClassX()!=null) {
-					if (student.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
-						listOfAllStudentOnClass.add(student);
-					}
-				}	
+		// Free students
+		List<Student> listOfFREEStudent = new ArrayList<>();
+		;
+		for (Student student : listOfAllStudent) {
+			if (student.getClassX() == null) {
+				listOfFREEStudent.add(student);
 			}
+		}
 
-			// Free students
-			List<Student> listOfFREEStudent = new ArrayList<>();;
-			for (Student student : listOfAllStudent) {
-				if (student.getClassX()==null) {
-					listOfFREEStudent.add(student);
+		request.setAttribute("classX", classX);
+
+		request.setAttribute("listOfAllStudentOnClass", listOfAllStudentOnClass);
+		request.setAttribute("listOfFREEStudent", listOfFREEStudent);
+
+		request.setAttribute("subject", classX.getSubject());
+		request.setAttribute("teacher", classX.getTeacher());
+
+		request.setAttribute("errorMessage", null);
+
+		request.setAttribute("side-menu", "class");
+		request.setAttribute("main-content", "class-student-list");
+		request.setAttribute("next-action", null);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void studentClassXRemove(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		// HttpSession session = request.getSession();
+		// ClassX classX =
+		// classDAO.getClassX(Integer.parseInt(request.getParameter("classXId")));
+		// session.setAttribute("id", classX.getId());
+
+		//ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("classXId")));
+
+		Student student = studentDAO.getStudent(Integer.parseInt(request.getParameter("id")));
+
+		student.setClassX(null);
+		studentDAO.updateStudent(student);
+
+		// request.setAttribute("classX", classX);
+		// RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		// dispatcher.forward(request, response);
+
+		classXList(request, response);
+		// classXStudentList(request, response);
+	}
+
+	private void studentClassXAdd(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		// HttpSession session = request.getSession();
+		// ClassX classX =
+		// classDAO.getClassX(Integer.parseInt(request.getParameter("classXId")));
+		// session.setAttribute("id", classX.getId());
+
+		ClassX classX = classDAO.getClassX(Integer.parseInt(request.getParameter("classXId")));
+
+		Student student = studentDAO.getStudent(Integer.parseInt(request.getParameter("studentId")));
+
+		student.setClassX(classX.getSubject().getSubjectName());
+		studentDAO.updateStudent(student);
+
+		// request.setAttribute("classX", classX);
+
+		// RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		// dispatcher.forward(request, response);
+
+		classXList(request, response);
+		// classXStudentList(request, response);
+
+	}
+
+	// Had some plans to make it show the student list for a particular class after student removal or student addition to a class, had no time to finish this on time so...	
+	private void classXStudentListAfterAdd(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		// get ID of Class and use it to get students on that class
+		// Also get all free students
+
+		// All Students
+		List<Student> listOfAllStudent = studentDAO.getAllStudent();
+
+		// Students on class
+		ClassX classX = (ClassX) request.getAttribute("classX");
+
+		List<Student> listOfAllStudentOnClass = new ArrayList<>();
+		;
+		for (Student student : listOfAllStudent) {
+
+			if (student.getClassX() != null) {
+				if (student.getClassX().equalsIgnoreCase(classX.getSubject().getSubjectName())) {
+					listOfAllStudentOnClass.add(student);
 				}
 			}
-			
-
-
-
-			request.setAttribute("classXId", classX.getId());
-			request.setAttribute("listOfAllStudentOnClass", listOfAllStudentOnClass);
-			request.setAttribute("listOfFREEStudent", listOfFREEStudent);
-			request.setAttribute("subjectName", classX.getSubject().getSubjectName());
-			request.setAttribute("teacherName", classX.getTeacher().getFirstName() + " " +classX.getTeacher().getLastName());
-			request.setAttribute("date", classX.getDate());
-			
-			
-			
-			
-
-			request.setAttribute("errorMessage", null);
-
-			request.setAttribute("side-menu", "class");
-			request.setAttribute("main-content", "class-student-list");
-			request.setAttribute("next-action", null);
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
-			dispatcher.forward(request, response);
 		}
-		
-	
 
-	
-	
-	
-	
-	
-	
-	
+		// Free students
+		List<Student> listOfFREEStudent = new ArrayList<>();
+		;
+		for (Student student : listOfAllStudent) {
+			if (student.getClassX() == null) {
+				listOfFREEStudent.add(student);
+			}
+		}
+
+		request.setAttribute("classXId", classX.getId());
+		request.setAttribute("listOfAllStudentOnClass", listOfAllStudentOnClass);
+		request.setAttribute("listOfFREEStudent", listOfFREEStudent);
+		request.setAttribute("subjectName", classX.getSubject().getSubjectName());
+		request.setAttribute("teacherName",
+				classX.getTeacher().getFirstName() + " " + classX.getTeacher().getLastName());
+		request.setAttribute("date", classX.getDate());
+
+		request.setAttribute("errorMessage", null);
+
+		request.setAttribute("side-menu", "class");
+		request.setAttribute("main-content", "class-student-list");
+		request.setAttribute("next-action", null);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("portal.jsp");
+		dispatcher.forward(request, response);
+	}
 
 	@SuppressWarnings("unused")
 	private void skeletonMethod(HttpServletRequest request, HttpServletResponse response)
