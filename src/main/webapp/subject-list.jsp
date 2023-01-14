@@ -46,14 +46,6 @@
 							<button name="next-action" value="subject-registration" type="submit">Add New Subject</button>
 						</form>
 					</td>
-					<td align="center" style="border: 0px">
-						<form action="<%=request.getContextPath()%>/portal" method="post">
-							<input name="side-menu" value="subject" type="hidden" />
-							<input name="main-content" value="subject-list" type="hidden" />
-							
-							<button name="next-action" value="subject-list" type="submit">List All Subjects</button>
-						</form>
-					</td>
 				</tr>
 			</table>
 		</td>			

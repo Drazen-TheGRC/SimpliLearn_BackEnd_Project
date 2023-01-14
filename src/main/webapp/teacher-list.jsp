@@ -46,14 +46,6 @@
 							<button name="next-action" value="teacher-registration" type="submit">Add New Teacher</button>
 						</form>
 					</td>
-					<td align="center" style="border: 0px">
-						<form action="<%=request.getContextPath()%>/portal" method="post">
-							<input name="side-menu" value="teacher" type="hidden" />
-							<input name="main-content" value="teacher-list" type="hidden" />
-							
-							<button name="next-action" value="teacher-list" type="submit">List All Teacher</button>
-						</form>
-					</td>
 				</tr>
 			</table>
 		</td>			

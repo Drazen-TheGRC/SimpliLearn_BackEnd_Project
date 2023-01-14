@@ -46,14 +46,6 @@
 								<button name="next-action" value="admin-registration" type="submit">Add New Admin</button>
 							</form>
 						</td>
-						<td align="center" style="border: 0px">
-							<form action="<%=request.getContextPath()%>/portal" method="post">
-								<input name="side-menu" value="admin" type="hidden" />
-								<input name="main-content" value="admin-list" type="hidden" />
-								
-								<button name="next-action" value="admin-list" type="submit">List All Admins</button>
-							</form>
-						</td>
 					</tr>
 				</table>
 			</td>			
