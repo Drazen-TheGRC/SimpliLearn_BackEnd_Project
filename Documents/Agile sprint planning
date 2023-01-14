@@ -90,26 +90,26 @@ Step one - 	create methods for Teacher control
 Step two - 	test Teacher functionality 
 
  		
-SPRITE 4
+SPRITE 5
 
 Step one - 	create methods for Subject control
 			create JSPs for portal and Subject
 Step two - 	test Subject functionality 	
 
-SPRITE 4
+SPRITE 6
 
 Step one - 	create methods for Student control
 			create JSPs for portal and Student
 Step two - 	test Student functionality 	
 
-SPRITE 4
+SPRITE 7
 
 Step one - 	create methods for Class control
 			create JSPs for portal and Class
 Step two - 	test Class functionality
 
 
-SPRITE 4
+SPRITE 8
 
 Step one - 	test the portal
 Step two - 	create documentation and Readme 
