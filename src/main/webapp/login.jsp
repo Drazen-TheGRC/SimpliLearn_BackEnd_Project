@@ -7,7 +7,7 @@
 
 <meta charset="UTF-8">
 <link rel="stylesheet" href="styles.css" />
-<title>Admin Registration</title>
+<title>Login Page</title>
 
 </head>
 <body>

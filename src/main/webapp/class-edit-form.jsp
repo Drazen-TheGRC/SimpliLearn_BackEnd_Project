@@ -8,7 +8,7 @@
 
 <meta charset="UTF-8">
 <link rel="stylesheet" href="styles.css" />
-<title>Class Registration</title>
+<title>Class Edit</title>
 
 </head>
 <body>
@@ -20,7 +20,7 @@
 			response.sendRedirect("login.jsp");
 		}		
 	%>
-	<h1>Please Register a Class</h1>
+	<h1>Please Edit a Class</h1>
 
 	<hr>
 	<br>
@@ -31,7 +31,7 @@
 		<table>
 			<tr>
 				<th colspan="2">
-					<h2>Class Register Form</h2>
+					<h2>Class Edit Form</h2>
 				</th>
 			</tr>
 			

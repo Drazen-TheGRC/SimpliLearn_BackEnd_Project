@@ -68,22 +68,49 @@ Step two -		Add essential documents into the project,
 			
 SPRINT 2
 Step one - 	Creating project structure (directories),
-
-			create 	learners_academy_database database (I will use HeidiSQL), 
-				
-			create	Model (POJOs) for Admin
 			create 	HibernateUtil
+			create 	learners_academy_database database (I will use HeidiSQL), 
+			create	Model (POJOs) for Admin
 			create	AdminDAO
-			
-			
-					
-			
-
+			create 	Servlet 
 Step two - 	Create other POJOs, DAOs
 
-			 	
-
-
+			 
 SPRITE 3
 
+Step one - 	create methods for Admin control
+			create JSPs for portal and Admin
+Step two - 	test Admin functionality 
+
+ 			
+SPRITE 4
+
+Step one - 	create methods for Teacher control
+			create JSPs for portal and Teacher
+Step two - 	test Teacher functionality 
+
+ 		
+SPRITE 4
+
+Step one - 	create methods for Subject control
+			create JSPs for portal and Subject
+Step two - 	test Subject functionality 	
+
+SPRITE 4
+
+Step one - 	create methods for Student control
+			create JSPs for portal and Student
+Step two - 	test Student functionality 	
+
+SPRITE 4
+
+Step one - 	create methods for Class control
+			create JSPs for portal and Class
+Step two - 	test Class functionality
+
+
+SPRITE 4
+
+Step one - 	test the portal
+Step two - 	create documentation and Readme 
 
